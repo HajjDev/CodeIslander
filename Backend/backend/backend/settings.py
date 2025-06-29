@@ -90,14 +90,13 @@ else:
             "ENGINE": os.environ.get("ENGINE"),
             "HOST": os.environ.get("HOST"),
             "NAME": os.environ.get("NAME"),
-            "USER": os.environ.get("USER"),
+            "USER": os.environ.get("USERDATABASE"),
             "PASSWORD": os.environ.get("PASSWORD"),
             "PORT": os.environ.get("PORT"),
         }
     }
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
