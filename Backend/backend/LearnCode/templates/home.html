@@ -1,6 +1,14 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% if messages %}
+    {% for message in messages %}
+        <div class="alert alert-{{ message.tags }}">
+            {{ message|safe }}
+        </div>
+    {% endfor %}
+    {% endif %}
+
     {% if request.user.is_authenticated %}
         <p>{{ request.user.username }}</p>
         <a href="{% url 'logout' %}">Logout</a>
