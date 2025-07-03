@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
     
     <!-- messages block -->
@@ -21,7 +22,10 @@
         <input type="text" name="username" required><br>
         <label for="password">Password:</label>
         <input type="password" name="password" required><br>
+        <div class="g-recaptcha" data-sitekey="6Let3HYrAAAAAPeg6hk_YxJpZlWXc6fwRMllkhM8"></div>
+        <a href="{% url 'password_reset' %}">Forgot password?</a>
         <button type="submit">Login</button>
         <a href="{% url 'register' %}">Don't have Click here to create.</a>
-    </fo
+    </form>
+{% endblock %}
 

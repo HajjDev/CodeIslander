@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "LearnCode"
+    "LearnCode",
+    "django_recaptcha",
 ]
 
 MIDDLEWARE = [
@@ -149,3 +150,7 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 EMAIL_PORT = (os.environ.get('EMAIL_PORT', 587))
 
 PASSWORD_RESET_TIMEOUT = 21600
+
+RECAPTCHA_PUBLIC_KEY  = os.environ.get("RECAPTCHA_PUBLIC_KEY")
+RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY")
+SILENCED_SYSTEM_CHECKS = os.environ.get("SILENCED_SYSTEM_CHECKS")
