@@ -6,3 +6,5 @@ from .reset_password import reset_password
 from .user_home import user_home
 from .user_login import user_login
 from .user_logout import user_logout
+from .profile_view import profile_view
+from .welcome import welcome

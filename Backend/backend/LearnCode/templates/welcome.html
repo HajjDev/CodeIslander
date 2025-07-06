@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
     {% if messages %}
@@ -8,8 +8,8 @@
         </div>
     {% endfor %}
     {% endif %}
-    
-    <h1>home</h1>
-    <a href="{% url 'profile' %}">profile</a>
-    <a href="{% url 'logout' %}">Logout</a>
+    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'register' %}">Register</a>
+
+    <h1>Sup!</h1>
 {% endblock %}

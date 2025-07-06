@@ -7,6 +7,7 @@ from ..forms import authenticate_email
 from django.contrib import messages
 from django.conf import settings
 
+
 def user_login(request):
     if request.method == 'POST':
         # Verify reCAPTCHA

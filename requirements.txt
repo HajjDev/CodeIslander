@@ -5,3 +5,4 @@ pathlib
 psycopg2-binary
 django-recaptcha
 requests
+functools
