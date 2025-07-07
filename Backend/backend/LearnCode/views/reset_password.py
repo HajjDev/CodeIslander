@@ -10,6 +10,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.contrib.auth import get_user_model
 
+
 def reset_password(request):
     if request.method == 'POST':
         form = PasswordResetForm(request.POST)

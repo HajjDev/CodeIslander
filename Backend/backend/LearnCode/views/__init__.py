@@ -8,3 +8,5 @@ from .user_login import user_login
 from .user_logout import user_logout
 from .profile_view import profile_view
 from .welcome import welcome
+from .reset_email import reset_email
+from .reset_username import reset_username

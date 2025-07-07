@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content-section">
+    <h2>Reset Email</h2><hr>
+    <p>Change your email address below.</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="btn btn-outline-info" type="submit">Reset Email</button>
+    </form>
+</div>
+{% endblock %}

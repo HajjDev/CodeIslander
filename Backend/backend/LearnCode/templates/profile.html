@@ -1,5 +1,10 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p>hello {{user}}</p>
+    <p>username: {{user}}
+    <a href="{% url 'username_reset' %}"><i class="fa-solid fa-pen"></i></a> </p>
+    <p>email: {{user.email}}  
+    <a href="{% url 'email_reset' %}"><i class="fa-solid fa-pen"></i></a> </p>
+    <p>password: #############
+    <a href="{% url 'password_reset' %}"><i class="fa-solid fa-pen"></i></a> </p> 
 {% endblock %}
