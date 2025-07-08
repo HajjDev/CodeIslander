@@ -11,7 +11,7 @@ def register(request):
             user.is_active = False
             user.save()
             activateEmail(request, user, form.cleaned_data.get('email'))
-            return redirect('home')
+            return redirect('login')
         else:
             for error in list(form.errors.values()):
                 messages.error(request, error)

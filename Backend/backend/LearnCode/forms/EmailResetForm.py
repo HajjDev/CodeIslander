@@ -1,7 +1,7 @@
 from django import forms
-from django.contrib.auth.models import User
+from ..models.customUser import CustomUser
 
 class EmailResetForm(forms.ModelForm):
     class Meta:
-        model = User
-        fields = ['email']
+        model = CustomUser
+        fields = []

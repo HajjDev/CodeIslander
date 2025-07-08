@@ -1,0 +1,8 @@
+{% autoescape off %}
+Hi {{ user.username }},
+
+We have received a change email request, the email associated to the account {{ user.username }} will be change to this email.
+Please click on the link to confirm this change.
+
+http://{{ domain }}{% url 'activateEmailChange' uidb64=uid token=token %}
+{% endautoescape %}

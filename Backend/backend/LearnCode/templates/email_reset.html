@@ -7,8 +7,8 @@
 
     <form method="POST">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button class="btn btn-outline-info" type="submit">Reset Email</button>
+        <input type="text" name="email" placeholder="Type Your New Email">
+        <input type="submit" value="Reset Email">
     </form>
 </div>
 {% endblock %}
