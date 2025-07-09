@@ -18,6 +18,8 @@ class CustomUserCreationForm(UserCreationForm):
         user.last_name = self.cleaned_data["last_name"]
         user.email = self.cleaned_data["email"]
         user.emailChangeRequest = ""
+        user.vip = False
+        user.totpEnabled = False
         if commit:
             user.save()
         return user
