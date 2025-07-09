@@ -1,15 +1,24 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <p>username: {{user}}
-    <a href="{% url 'username_reset' %}"><i class="fa-solid fa-pen"></i></a> </p>
-    <p>email: {{user.email}}  
-    <a href="{% url 'email_reset' %}"><i class="fa-solid fa-pen"></i></a> </p>
-    <p>password: #############
-    <a href="{% url 'password_reset' %}"><i class="fa-solid fa-pen"></i></a> </p> 
+    <p>username: {{user}} <a href="{% url 'username_reset' %}"><i class="fa-solid fa-pen"></i></a> </p>
+    <p>email: {{user.email}} <a href="{% url 'email_reset' %}"><i class="fa-solid fa-pen"></i></a> </p>
+    <p>password: ############# <a href="{% url 'password_reset' %}"><i class="fa-solid fa-pen"></i></a> </p>
+    
+    <p>
+        2FA: {% if user.totpEnabled %}
+                Activated, if you wish to disable it, <button>click here</button>
+             {% else %}
+                Not Activated, if you wish to enable it, <button>click here</button>
+             {% endif %}
+    </p>
+    
     <p>VIP: {% if user.vip %}
-            Available
+                Available
             {% else %}
-            Unavailable
-            {% endif %} <i class="fa-solid fa-crown"></i></p> 
+                Unavailable
+            {% endif %} 
+            <i class="fa-solid fa-crown"></i>
+    </p>
+     
 {% endblock %}
