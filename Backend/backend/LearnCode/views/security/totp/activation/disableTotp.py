@@ -13,7 +13,7 @@ def disableTotp(request):
         verif = authenticate(request, username=user, password=password)
         if verif:
             user.totpEnabled = False
-            user.secret = ""
+            user.secretTotp = ""
             user.save()
 
             mail_subject = 'Two-factor authentication (2FA) deactivated successfully!'

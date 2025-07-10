@@ -1,11 +1,12 @@
 from django.urls import path
-from LearnCode.views import welcome, register, user_login, user_logout, user_home, activate, reset_password, reset_confirmation, profile_view, reset_email, reset_username, activateChangeEmail, startTotp, enableTotp, stopTotp, disableTotp
+from LearnCode.views import welcome, register, user_login, user_logout, user_home, verify, activate, reset_password, reset_confirmation, profile_view, reset_email, reset_username, activateChangeEmail, startTotp, enableTotp, stopTotp, disableTotp
 
 urlpatterns = [
     path('', welcome, name='welcome'),
     path('home/', user_home, name='home'),
     path('register/', register, name='register'),
     path('login/', user_login, name='login'),
+    path('login/verify/', verify, name="verify"),
     path('logout/', user_logout, name='logout'),
     path('profile/', profile_view, name='profile'),
     path('profile/start-totp/', startTotp, name='enable_totp' ),

@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect
 import requests
 from django.contrib.auth import authenticate, login
 from ...forms import authenticate_email
+from ..security.totp.verification.sendVerificationMail import sendVerificationMail
 from django.contrib import messages
 from django.conf import settings
 
@@ -31,7 +32,12 @@ def user_login(request):
         if user is None:
             user = authenticate_email(request, email=username, password=password)
         if user is not None:
+            if user.totpEnabled:
+                request.session['pre_2fa_id'] = user.id
+                sendVerificationMail(request, user)
+                return redirect('verify')
+            
             login(request, user)
-            return redirect('home')
+            return redirect("home")
 
     return render(request, 'login.html')

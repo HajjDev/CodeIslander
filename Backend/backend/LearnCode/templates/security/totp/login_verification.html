@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content-section">
+    <h2>Please write the code to Log-in</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="digitcode" placeholder="Type the code you received by mail">
+        <input type="submit" value="Log-in">
+    </form>
+</div>
+{% endblock %}

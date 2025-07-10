@@ -9,7 +9,7 @@ def enableTotp(request):
     if request.method == 'POST':
         code = request.POST['digitcode']
         user = request.user
-        verification = pyotp.TOTP(user.secret, interval=300)
+        verification = pyotp.TOTP(user.secretTotp, interval=300)
 
         if verification.verify(code):
             user.totpEnabled = True

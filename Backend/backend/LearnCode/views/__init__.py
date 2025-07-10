@@ -12,7 +12,9 @@ from .security.detailsChange.resetEmail.reset_email import reset_email
 from .security.detailsChange.reset_username import reset_username
 from .security.detailsChange.resetEmail.changeEmail import changeEmail
 from .security.detailsChange.resetEmail.activateChangeEmail import activateChangeEmail
-from .security.totp.startTotp import startTotp
-from .security.totp.enableTotp import enableTotp
-from .security.totp.stopTotp import stopTotp
-from .security.totp.disableTotp import disableTotp
+from .security.totp.activation.startTotp import startTotp
+from .security.totp.activation.enableTotp import enableTotp
+from .security.totp.activation.stopTotp import stopTotp
+from .security.totp.activation.disableTotp import disableTotp
+from .security.totp.verification.sendVerificationMail import sendVerificationMail
+from .security.totp.verification.verify import verify
