@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from ..forms.UsernameResetForm import UsernameResetForm  # adjust if needed
+from ....forms.UsernameResetForm import UsernameResetForm  # adjust if needed
 
 @login_required
 def reset_username(request):
@@ -16,4 +16,4 @@ def reset_username(request):
     else:
         form = UsernameResetForm(instance=request.user)
     
-    return render(request, 'username_reset.html', {'form': form})
+    return render(request, 'security/detailsChange/username_reset.html', {'form': form})

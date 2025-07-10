@@ -5,3 +5,4 @@ class CustomUser(AbstractUser):
     emailChangeRequest = models.CharField(max_length=255, blank=True, null=True)
     vip = models.BooleanField(default=False)
     totpEnabled = models.BooleanField(default=False)
+    secret = models.CharField(default="")

@@ -7,9 +7,17 @@
     
     <p>
         2FA: {% if user.totpEnabled %}
-                Activated, if you wish to disable it, <button>click here</button>
+                Activated, if you wish to disable it
+                <form action="{% url 'stop_totp' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Disable 2FA</button>
+                </form>
              {% else %}
-                Not Activated, if you wish to enable it, <button>click here</button>
+                Not Activated, if you wish to enable it,
+                <form action="{% url 'enable_totp' %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit">Enable 2FA</button>
+                </form>
              {% endif %}
     </p>
     

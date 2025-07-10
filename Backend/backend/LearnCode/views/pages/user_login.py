@@ -1,9 +1,8 @@
 # Create your views here.
 from django.shortcuts import render, redirect
 import requests
-from django.contrib.auth import login
 from django.contrib.auth import authenticate, login
-from ..forms import authenticate_email
+from ...forms import authenticate_email
 from django.contrib import messages
 from django.conf import settings
 

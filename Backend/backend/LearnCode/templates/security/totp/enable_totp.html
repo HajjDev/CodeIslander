@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content-section">
+    <h2>Enable Totp</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="text" name="digitcode" placeholder="Type the code you received by mail">
+        <input type="submit" value="enable totp">
+    </form>
+</div>
+{% endblock %}

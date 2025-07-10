@@ -1,4 +1,4 @@
-from ..tokens import account_activation_token
+from .....tokens import account_activation_token
 from django.contrib.auth import get_user_model
 from django.utils.http import urlsafe_base64_decode
 from django.utils.encoding import force_str

@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.db.models import Q
-from ..forms import PasswordResetForm
+from .....forms import PasswordResetForm
 from django.contrib import messages
-from ..tokens import account_activation_token
+from .....tokens import account_activation_token
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
@@ -19,7 +19,7 @@ def reset_password(request):
             associated_user = get_user_model().objects.filter(Q(email=user_email)).first()
             if associated_user:
                 subject = "Password Reset request"
-                message = render_to_string("template_reset_password.html", {
+                message = render_to_string("email/template_reset_password.html", {
                     'user': associated_user,
                     'domain': get_current_site(request).domain,
                     'uid': urlsafe_base64_encode(force_bytes(associated_user.pk)),
@@ -51,6 +51,6 @@ def reset_password(request):
     form = PasswordResetForm()
     return render(
         request=request, 
-        template_name="password_reset.html", 
+        template_name="security/detailsChange/password_reset.html", 
         context={"form": form}
         )

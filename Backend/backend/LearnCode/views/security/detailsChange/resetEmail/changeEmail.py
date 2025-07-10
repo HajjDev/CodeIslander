@@ -1,5 +1,5 @@
 from django.contrib import messages
-from ..tokens import account_activation_token
+from .....tokens import account_activation_token
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
@@ -8,7 +8,7 @@ from django.utils.encoding import force_bytes
 
 def changeEmail(request, user, to_email):
     mail_subject = 'Email change request'
-    message = render_to_string('template_verify_email.html', {
+    message = render_to_string('email/template_verify_email.html', {
         'user': user.username,
         'domain': get_current_site(request).domain,
         'uid': urlsafe_base64_encode(force_bytes(user.pk)),

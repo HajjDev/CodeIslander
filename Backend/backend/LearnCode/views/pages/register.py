@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
-from ..forms import CustomUserCreationForm
+from ...forms import CustomUserCreationForm
 from django.contrib import messages
-from .activateEmail import activateEmail
+from ..security.register.activateEmail import activateEmail
 
 def register(request):
     if request.method == 'POST':

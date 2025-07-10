@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from ..forms.EmailResetForm import EmailResetForm
+from .....forms.EmailResetForm import EmailResetForm
 from .changeEmail import changeEmail
 
 
@@ -22,4 +22,4 @@ def reset_email(request):
     else:
         form = EmailResetForm(instance=request.user)
 
-    return render(request, 'email_reset.html', {'form': form})
+    return render(request, 'security/detailsChange/email_reset.html', {'form': form})

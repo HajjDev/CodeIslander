@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="content-section">
+    <h2>Disable Totp</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="password" name="inputPass" placeholder="Type your account's password">
+        <input type="submit" value="disable totp">
+    </form>
+</div>
+{% endblock %}
