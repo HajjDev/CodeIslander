@@ -6,3 +6,5 @@ psycopg2-binary
 django-recaptcha
 requests
 pyotp
+django-allauth
+jwt

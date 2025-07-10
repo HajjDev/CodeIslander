@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load socialaccount %}
+
 
 {% block content %}
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
@@ -14,6 +16,13 @@
         {% endfor %}
       </ul>
     {% endif %}
+
+    <div class="media-options">
+      <a href="{% provider_login_url 'google' %}" class="field google">
+        <i class="fa-brands fa-google googleicon"></i>
+        <p>Login with Google</p>
+      </a>
+    </div>
 
     <h2>Login</h2>
     <form method="post">
