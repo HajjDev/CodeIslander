@@ -4,10 +4,18 @@
 {% block content %}
     <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
     <h2>Register</h2>
+
+    <div class="media-options">
+      <a href="{% provider_login_url 'google' %}" class="field google">
+        <p>Sign up with Google <i class="fa-brands fa-google googleicon"></i></p>
+      </a>
+    </div>
+
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Register</button>
     </form>
     
+
 {% endblock %}

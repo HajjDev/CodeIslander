@@ -17,14 +17,15 @@
       </ul>
     {% endif %}
 
+    <h2>Login</h2>
+
     <div class="media-options">
       <a href="{% provider_login_url 'google' %}" class="field google">
-        <i class="fa-brands fa-google googleicon"></i>
-        <p>Login with Google</p>
+        <p>Login with Google <i class="fa-brands fa-google googleicon"></i></p>
       </a>
     </div>
 
-    <h2>Login</h2>
+    
     <form method="post">
         {% csrf_token %}
         <label for="username">Username/email:</label>
