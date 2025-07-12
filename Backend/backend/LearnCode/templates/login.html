@@ -25,6 +25,12 @@
       </a>
     </div>
 
+    <div class="media-options">
+      <a href="{% provider_login_url 'github' %}" class="field github">
+        <p>Login with github <i class="fa-brands fa-github"></i></p>
+      </a>
+    </div>
+
     
     <form method="post">
         {% csrf_token %}

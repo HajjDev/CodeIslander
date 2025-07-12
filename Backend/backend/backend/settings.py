@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
+    "allauth.socialaccount.providers.github",
 ]
 
 MIDDLEWARE = [
@@ -179,8 +180,17 @@ SOCIALACCOUNT_PROVIDERS = {
             'client_id': os.environ.get('CLIENT_ID'),
             'secret': os.environ.get('CLIENT_KEY'),
             'key': ''
-        }
-    } 
+        },
+    } ,
+    "github": {
+        'APP': {
+            'client_id': os.environ.get('GITHUB_CLIENT_ID'),
+            'secret': os.environ.get('GITHUB_CLIENT_KEY'),
+        },
+        'AUTH_PARAMS': {
+            'prompt': 'consent',
+        },
+    } ,
 }
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
