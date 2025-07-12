@@ -4,8 +4,12 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib.sites.shortcuts import get_current_site
 from django.shortcuts import redirect
+from django.contrib.auth.decorators import login_required
+from .....utils import notwofa_required, thirdpartybanned
 
-
+@login_required
+@notwofa_required
+@thirdpartybanned
 def startTotp(request):
     user = request.user
     user.secretTotp = pyotp.random_base32()

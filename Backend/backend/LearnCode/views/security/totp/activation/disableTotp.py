@@ -3,7 +3,12 @@ from django.core.mail import EmailMessage
 from django.contrib.sites.shortcuts import get_current_site
 from django.template.loader import render_to_string
 from django.contrib.auth import logout, authenticate
+from django.contrib.auth.decorators import login_required
+from .....utils import twofa_enabled, thirdpartybanned
 
+@login_required
+@twofa_enabled
+@thirdpartybanned
 def disableTotp(request):
     if request.method == "POST":
         user = request.user

@@ -2,7 +2,9 @@ from django.shortcuts import render, redirect
 from ...forms import CustomUserCreationForm
 from django.contrib import messages
 from ..security.register.activateEmail import activateEmail
+from ...utils import logout_required
 
+@logout_required
 def register(request):
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)

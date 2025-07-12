@@ -6,8 +6,9 @@ from ...forms import authenticate_email
 from ..security.totp.verification.sendVerificationMail import sendVerificationMail
 from django.contrib import messages
 from django.conf import settings
+from ...utils import logout_required
 
-
+@logout_required
 def user_login(request):
     if request.method == 'POST':
         # Verify reCAPTCHA

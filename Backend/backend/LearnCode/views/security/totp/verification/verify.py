@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import get_user_model, login
 import pyotp
+from .....utils import twofa_required, thirdpartybanned, logout_required
 
+
+@twofa_required
+@logout_required
 def verify(request):
     User = get_user_model()
 
