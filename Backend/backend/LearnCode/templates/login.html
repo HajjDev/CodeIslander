@@ -4,7 +4,7 @@
 
 {% block content %}
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
+    
     
     <!-- messages block -->
     {% if messages %}
@@ -17,7 +17,6 @@
       </ul>
     {% endif %}
 
-    <h2>Login</h2>
 
     <div class="media-options">
       <a href="{% provider_login_url 'google' %}" class="field google">
@@ -41,7 +40,7 @@
         <div class="g-recaptcha" data-sitekey="6Let3HYrAAAAAPeg6hk_YxJpZlWXc6fwRMllkhM8"></div>
         <a href="{% url 'password_reset' %}">Forgot password?</a>
         <button type="submit">Login</button>
-        <a href="{% url 'register' %}">Don't have Click here to create.</a>
+        <a href="{% url 'register' %}">Register</a>
     </form>
 {% endblock %}
 

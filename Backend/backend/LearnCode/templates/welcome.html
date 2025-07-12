@@ -1,15 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-    {% if messages %}
-    {% for message in messages %}
-        <div class="alert alert-{{ message.tags }}">
-            {{ message|safe }}
-        </div>
-    {% endfor %}
-    {% endif %}
-    <a href="{% url 'login' %}">Login</a>
-    <a href="{% url 'register' %}">Register</a>
+{% load static %}
 
-    <h1>Sup!</h1>
+    <a href="{% url 'login' %}">Get started</a>
+
+    <div class="about-us">
+       <h2>About us</h2>
+       <p>We are two students at UCLouvain enrolled in the Computer Science program. Passionate about technology and problem-solving, we created this platform as part of a personal project to deepen our skills and share useful tools with others. Our goal is to build something both functional and meaningful while continuously learning and growing as developers.</p>
+    </div>
+
+    
+    <div class="logo-row">
+    <img src="{% static 'Images/HTML.png' %}" alt="HTML">
+    <img src="{% static 'Images/JS.png' %}" alt="JavaScript">
+    <img src="{% static 'Images/python.png' %}" alt="Python">
+    <img src="{% static 'Images/CSS.png' %}" alt="CSS">
+    <img src="{% static 'Images/django.png' %}" alt="Django">
+    </div>
+
+    
+
+
 {% endblock %}

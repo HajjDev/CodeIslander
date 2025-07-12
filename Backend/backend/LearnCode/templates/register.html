@@ -2,6 +2,8 @@
 {% load socialaccount %}
 
 {% block content %}
+
+
   {% if messages %}
       <ul class="messages">
         {% for message in messages %}
@@ -11,20 +13,9 @@
         {% endfor %}
       </ul>
     {% endif %}
-    <a href="{% url 'login' %}">Login</a> | <a href="{% url 'register' %}">Register</a>
+    <a href="{% url 'login' %}">Login</a>
     <h2>Register</h2>
 
-    <div class="media-options">
-      <a href="{% provider_login_url 'google' %}" class="field google">
-        <p>Sign up with Google <i class="fa-brands fa-google googleicon"></i></p>
-      </a>
-    </div>
-
-    <div class="media-options">
-      <a href="{% provider_login_url 'github' %}" class="field github">
-        <p>Sign up with github <i class="fa-brands fa-github"></i></p>
-      </a>
-    </div>
 
     <form method="post">
         {% csrf_token %}
