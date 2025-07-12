@@ -177,8 +177,8 @@ AUTHENTICATION_BACKENDS = [
 SOCIALACCOUNT_PROVIDERS = {
     "google": {
         'APP': {
-            'client_id': os.environ.get('CLIENT_ID'),
-            'secret': os.environ.get('CLIENT_KEY'),
+            'client_id': os.environ.get('GOOGLE_CLIENT_ID'),
+            'secret': os.environ.get('GOOGLE_CLIENT_KEY'),
             'key': ''
         },
     } ,
