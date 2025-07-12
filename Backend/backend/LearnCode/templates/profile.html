@@ -2,24 +2,26 @@
 
 {% block content %}
     <p>username: {{user}} <a href="{% url 'username_reset' %}"><i class="fa-solid fa-pen"></i></a> </p>
-    <p>email: {{user.email}} <a href="{% url 'email_reset' %}"><i class="fa-solid fa-pen"></i></a> </p>
-    <p>password: ############# <a href="{% url 'password_reset' %}"><i class="fa-solid fa-pen"></i></a> </p>
-    
-    <p>
-        2FA: {% if user.totpEnabled %}
-                Activated, if you wish to disable it
-                <form action="{% url 'stop_totp' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Disable 2FA</button>
-                </form>
-             {% else %}
-                Not Activated, if you wish to enable it,
-                <form action="{% url 'enable_totp' %}" method="post">
-                    {% csrf_token %}
-                    <button type="submit">Enable 2FA</button>
-                </form>
-             {% endif %}
-    </p>
+    {% if user.email %}
+        <p>email: {{user.email}} <a href="{% url 'email_reset' %}"><i class="fa-solid fa-pen"></i></a> </p>
+        <p>password: ############# <a href="{% url 'password_reset' %}"><i class="fa-solid fa-pen"></i></a> </p>
+        
+        <p>
+            2FA: {% if user.totpEnabled %}
+                    Activated, if you wish to disable it
+                    <form action="{% url 'stop_totp' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Disable 2FA</button>
+                    </form>
+                {% else %}
+                    Not Activated, if you wish to enable it,
+                    <form action="{% url 'enable_totp' %}" method="post">
+                        {% csrf_token %}
+                        <button type="submit">Enable 2FA</button>
+                    </form>
+                {% endif %}
+        </p>
+    {% endif %}
     
     <p>VIP: {% if user.vip %}
                 Available
