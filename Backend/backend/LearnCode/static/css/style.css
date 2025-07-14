@@ -23,3 +23,84 @@ footer {
   width: 100%;
   margin-top: 30px;
 }
+
+
+/* VIP tabe */
+.pricing-table {
+  text-align: center;
+  padding: 3rem 1rem;
+  background-color: #f0f9ff;
+  font-family: sans-serif;
+}
+
+.pricing-table h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.pricing-table p {
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+.pricing-table table {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.pricing-table th,
+.pricing-table td {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+.pricing-table th {
+  background-color: #e0f2fe;
+}
+
+.cta-button {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  color: white;
+  background-color: #3b82f6;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.cta-button:hover {
+  background-color: #2563eb;
+}
+
+/* Get started button */
+
+.get-started-button {
+  background: linear-gradient(45deg, #facc15, #eab308); /* warm yellows */
+  color: #3b1700; /* dark brown for contrast */
+  font-weight: 700;
+  font-size: 1.25rem;
+  padding: 1rem 2.5rem;
+  border: 3px solid #b45309; /* deeper yellow/brown border */
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #b45309;
+  letter-spacing: 0.05em;
+}
+
+.get-started-button:hover {
+  background: linear-gradient(45deg, #eab308, #facc15);
+  box-shadow: 0 3px 0 #92400e;
+  transform: translateY(3px);
+}
+
+.button-container {
+  display: flex;
+  justify-content: center; /* center horizontally */
+  margin: 3rem 0;          /* vertical spacing */
+}

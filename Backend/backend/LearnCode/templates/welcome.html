@@ -3,12 +3,64 @@
 {% block content %}
 {% load static %}
 
-    <a href="{% url 'login' %}">Get started</a>
+    <div class="button-container">
+        <a href="{% url 'login' %}" class="get-started-button">Get started</a>
+    </div>
+
+    <div class="VIP">
+     <section class="pricing-table">
+    <h2>🏝️ Free vs VIP</h2>
+    <p>Compare the features and choose your path.</p>
+    <table>
+    <thead>
+        <tr>
+        <th>Features</th>
+        <th>Free</th>
+        <th>AVIP</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+        <td>Basic Python Exercises</td>
+        <td>Limited per day</td>
+        <td>Unlimited exercises</td>
+        </tr>
+        <tr>
+        <td>AI help and feedback</td>
+        <td>limited per day</td>
+        <td>Unlimited</td>
+        </tr>
+        <tr>
+        <td>Unlock exercises in branches</td>
+        <td>Certain excercises</td>
+        <td>The whole branches</td>
+        </tr>
+        <tr>
+        <td>Acces to documentation to the excercies and theorie</td>
+        <td>Only from the levels completed</td>
+        <td>All documentation</td>
+        </tr>
+    </tbody>
+    </table>
+    <button class="cta-button">Upgrade to AVIP</button>
+    </section>
+
+    </div>
+
 
     <div class="about-us">
        <h2>About us</h2>
        <p>We are two students at UCLouvain enrolled in the Computer Science program. Passionate about technology and problem-solving, we created this platform as part of a personal project to deepen our skills and share useful tools with others. Our goal is to build something both functional and meaningful while continuously learning and growing as developers.</p>
     </div>
+
+    <section class='Learn-python-section'>
+        <div class = 'content'>
+            <h2>🚀Learn Python by Playing!</h2>
+            <p>CodeIslander is an interactive game that guides you through quizzes, exercises, and small bits of theory — no prior experience needed.
+            In CodeIslander, players explore their learning journey through a dynamic, game-like map UI. Each Python concept — like variables, functions, and loops — is introduced as a new chapter, represented by a different island. Every island has its own unique theme, making the adventure engaging, visual, and fun.
+            </p>
+        </div>
+    </section>
 
     
     <div class="logo-row">
