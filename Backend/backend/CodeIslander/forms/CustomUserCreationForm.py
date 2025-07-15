@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
-from LearnCode.models import CustomUser
+from CodeIslander.models import CustomUser
 
 class CustomUserCreationForm(UserCreationForm):
     first_name = forms.CharField(required=True)

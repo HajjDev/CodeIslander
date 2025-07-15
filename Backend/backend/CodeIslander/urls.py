@@ -1,5 +1,5 @@
 from django.urls import path
-from LearnCode.views import welcome, register, user_login, user_logout, user_home, verify, activate, reset_password, reset_confirmation, profile_view, reset_email, reset_username, activateChangeEmail, startTotp, enableTotp, stopTotp, disableTotp
+from CodeIslander.views import welcome, register, user_login, user_logout, user_home, verify, activate, reset_password, reset_confirmation, profile_view, reset_email, reset_username, activateChangeEmail, startTotp, enableTotp, stopTotp, disableTotp
 
 urlpatterns = [
     path('', welcome, name='welcome'),

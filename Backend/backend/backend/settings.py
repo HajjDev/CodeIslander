@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "LearnCode",
+    "CodeIslander",
     "django_recaptcha",
     "django.contrib.sites",
     "allauth",
@@ -166,9 +166,9 @@ RECAPTCHA_PUBLIC_KEY  = os.environ.get("RECAPTCHA_PUBLIC_KEY")
 RECAPTCHA_PRIVATE_KEY = os.environ.get("RECAPTCHA_PRIVATE_KEY")
 SILENCED_SYSTEM_CHECKS = os.environ.get("SILENCED_SYSTEM_CHECKS")
 
-LOGIN_URL = '/LearnCode/login/'
+LOGIN_URL = '/CodeIslander/login/'
 
-AUTH_USER_MODEL = "LearnCode.CustomUser"
+AUTH_USER_MODEL = "CodeIslander.CustomUser"
 
 AUTHENTICATION_BACKENDS = [
     "allauth.account.auth_backends.AuthenticationBackend",
@@ -194,5 +194,5 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 SOCIALACCOUNT_LOGIN_ON_GET = True
-SOCIALACCOUNT_ADAPTER = 'LearnCode.adapter.NoFormSocialAccountAdapter'
+SOCIALACCOUNT_ADAPTER = 'CodeIslander.adapter.NoFormSocialAccountAdapter'
 LOGIN_REDIRECT_URL = 'home'

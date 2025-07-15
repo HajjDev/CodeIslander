@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_content %}
+        <link rel="stylesheet" href="{% static "css/welcome.css" %}">
+{% endblock %}
+
+{% block content %}
+    <div class="welcome-content">
+        <div class="started-part">
+            <img src="{% static "images/logo.png" %}">
+            <div class="started-part-text">
+                <p>Learning to code doesn’t have to be boring or overwhelming. Here, you’ll dive into the world of Python through interactive gameplay designed to teach you real programming skills in a fun, hands-on way. Whether you’re just getting started or brushing up on your skills, this journey will challenge your brain while keeping you entertained.</p>
+            </div>
+            <div class="button-container">
+                <a href="{% url 'login' %}" class="get-started-button">Get started</a>
+            </div>
+        </div>
+
+        <div class="info-part">
+            <div class='Learn-python-section'>
+                <div class = 'first-section'>
+                    <div class="first-section-content">
+                        <div class="first-section-text">
+                            <h2 class="first-section-text-title">🚀Learn Python by Playing!</h2>
+                            <p class="first-section-text-paragraph">CodeIslander is an interactive game that guides you through quizzes, exercises, and small bits of theory — no prior experience needed.
+                            In CodeIslander, players explore their learning journey through a dynamic, game-like map UI. Each Python concept — like variables, functions, and loops — is introduced as a new chapter, represented by a different island. Every island has its own unique theme, making the adventure engaging, visual, and fun.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="second-section">
+                    <div class='second-section-content'>
+                        <div class='second-section-text'>
+                            <h2 class="second-section-text-title">Level Up your Skills!</h2>
+                            <p class="second-section-text-paragraph">Jump into exercises designed to teach you Python step by step. Each challenge gives you clear goals, instant feedback, and helpful hints—so you're never stuck for long. Write real code, see real results, and build real skills as you go.</p>
+                        </div>
+                        <div class="second-section-images">
+                            <img src="{% static "images/decoy.jpg" %}">
+                        </div>
+                    </div>
+                    <div class="third-section">
+                        <div class="third-section-text">
+                            <h2 class="third-section-text-title">Explore our World!</h2>
+                            <p class="third-section-text-paragraph">Travel through a world made up of unique islands, each one focused on a key Python concept. As you land on a new island, you'll dive into chapters that combine clear explanations with hands-on coding practice. From learning the basics to tackling real challenges, every island is designed to teach you something new. Whether you're just getting started or leveling up, the journey is yours to explore at your own pace.</p>
+                        </div>
+                        <div class="third-section-images">
+                            <img src="{% static "images/decoy.jpg" %}">
+                        </div>
+                    </div>
+                    <div class="fourth-section">
+                        <div class="fourth-section-text">
+                            <h2 class="fourth-section-text-title">Unlock, Solve, Progress</h2>
+                            <p class="fourth-section-text-paragraph">Inside each map, you’ll find a series of focused coding challenges as well as theory points designed to build your Python skills one concept at a time. As you complete each task, you unlock the next—creating a clear path of progression that’s both rewarding and educational. Every level introduces a new idea, gives you space to apply it, and helps you move forward with confidence. It’s not just about getting to the end—it’s about leveling up your logic, one solved problem at a time.</p>
+                        </div>
+                        <div class="fourth-section-images">
+                            <img src="{% static "images/decoy.jpg" %}">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-us">
+                <h2 class="about-us-title">About us</h2>
+                <p class="about-us-text">We are two students at UCLouvain enrolled in the Computer Science program. Passionate about technology and problem-solving, we created this platform as part of a personal project to deepen our skills and share useful tools with others. Our goal is to build something both functional and meaningful while continuously learning and growing as developers.</p>
+            </div>
+
+            <div class="VIP">
+                <div class="pricing-table">
+                    <h2>🏝️ Free vs VIP</h2>
+                    <p>Compare the features and choose your path.</p>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Features</th>
+                                <th>Free</th>
+                                <th>VIP</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Basic Python Exercises</td>
+                                <td>Limited per day</td>
+                                <td>Unlimited exercises</td>
+                            </tr>
+                            <tr>
+                                <td>AI help and feedback</td>
+                                <td>Limited per day</td>
+                                <td>Unlimited</td>
+                            </tr>
+                            <tr>
+                                <td>Unlock exercises in branches</td>
+                                <td>Certain excercises</td>
+                                <td>The whole branches</td>
+                            </tr>
+                            <tr>
+                                <td>Access to documentation to the exercises and theory</td>
+                                <td>Only from the levels completed</td>
+                                <td>All documentation</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <button class="cta-button">Pricing</button>
+                </div>
+            </div>
+
+            <div class="framework-part">
+                <div class="framework-part-text">
+                    <h2 class="framework-part-text-title">Technologies Used</h2>
+                </div>
+                <div class="framework-part-logo-row">
+                    <img src="{% static 'Images/HTML.png' %}" alt="HTML">
+                    <img src="{% static 'Images/JS.png' %}" alt="JavaScript">
+                    <img src="{% static 'Images/python.png' %}" alt="Python">
+                    <img src="{% static 'Images/CSS.png' %}" alt="CSS">
+                    <img src="{% static 'Images/django.png' %}" alt="Django">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

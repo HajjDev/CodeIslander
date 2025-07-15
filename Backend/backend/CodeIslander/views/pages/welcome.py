@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from LearnCode.utils import logout_required
+from CodeIslander.utils import logout_required
 
 @logout_required
 def welcome(request):
