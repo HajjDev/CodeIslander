@@ -1,3 +1,22 @@
+body {
+  margin: 0;
+}
+
+.background-image {
+  display: flex;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.actual-image {
+  max-width: 100vw;
+  height: auto;
+  position: absolute;
+  z-index: -99;
+  right: 0;
+}
+
 /* VIP tabe */
 .pricing-table {
   text-align: center;
@@ -30,3 +49,4 @@
   border: 1px solid #ddd;
   font-size: 1rem;
 }
+

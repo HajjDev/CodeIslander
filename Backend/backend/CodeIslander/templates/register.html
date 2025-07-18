@@ -1,25 +1,28 @@
-{% extends 'base.html' %}
-{% load socialaccount %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Document</title>
+	</head>
+	<body>
+		{% load socialaccount %}
 
-{% block content %}
+		{% if messages %}
+			<ul class="messages">
+			{% for message in messages %}
+				<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
+					{{ message }}
+				</li>
+			{% endfor %}
+			</ul>
+		{% endif %}
+		<h2>Register</h2>d
 
-	{% if messages %}
-		<ul class="messages">
-		{% for message in messages %}
-			<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-				{{ message }}
-			</li>
-		{% endfor %}
-		</ul>
-	{% endif %}
-	<h2>Register</h2>
-
-
-	<form method="post">
-		{% csrf_token %}
-		{{ form.as_p }}
-		<button type="submit">Register</button>
-	</form>
-    
-
-{% endblock %}
+		<form method="post">
+			{% csrf_token %}
+			{{ form.as_p }}
+			<button type="submit">Register</button>
+		</form>
+	</body>
+</html>
