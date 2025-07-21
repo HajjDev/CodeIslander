@@ -50,3 +50,44 @@ body {
   font-size: 1rem;
 }
 
+
+.overlay-content {
+    position: absolute;
+    top: 25vh;          
+    left: 0vw;          
+    background-color: transparent;
+    padding: 6rem 3rem; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+}
+
+
+
+.center-text-large p {
+    font-size: 40px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.center-text p {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.button-container .get-started-button {
+    background-color: #1f1f1f;
+    color: white;
+    padding: 12px 24px;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.button-container .get-started-button:hover {
+    background-color: #333;
+}
+
+

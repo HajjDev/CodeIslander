@@ -2,22 +2,34 @@
 {% load static %}
 
 {% block head_content %}
-        <link rel="stylesheet" href="{% static "css/welcome.css" %}">
+        <link rel="stylesheet" href="{% static 'css/welcome.css' %}">
 {% endblock %}
 
 {% block content %}
-    <div class="welcome-content">
-        <div class="background-image">
-            <img class="actual-image" src="{% static "images/ha.webp" %}">
+    <div class="background-image">
+        <img class="actual-image" src="{% static 'Images/ha.webp' %}" alt="Background">
+    </div>
+    <div class="overlay-content">
+        <div class="center-text-large">
+            <p>Learn Python 
+                the Fun Way.</p>
         </div>
+        <div class="center-text">
+            <p>Learn with creative map, fun exercices...</p>
+        </div>
+        <div class="button-container">
+            <a href="{% url 'login' %}" class="get-started-button">Start Your Adventure</a>
+        </div>
+    </div>
+</div>
+
+        
         <div class="started-part">
             <div class="started-part-text">
                 <h1>Code Islander</h1>
                 <p>Learning to code doesn’t have to be boring or overwhelming. Here, you’ll dive into the world of Python through interactive gameplay designed to teach you real programming skills in a fun, hands-on way. Whether you’re just getting started or brushing up on your skills, this journey will challenge your brain while keeping you entertained.</p>
             </div>
-            <div class="button-container">
-                <a href="{% url 'login' %}" class="get-started-button">Get started</a>
-            </div>
+            
         </div>
 
         <div class="info-part">
@@ -38,7 +50,7 @@
                             <p class="second-section-text-paragraph">Jump into exercises designed to teach you Python step by step. Each challenge gives you clear goals, instant feedback, and helpful hints—so you're never stuck for long. Write real code, see real results, and build real skills as you go.</p>
                         </div>
                         <div class="second-section-images">
-                            <img src="{% static "images/decoy.jpg" %}">
+                            <img src="{% static 'Images/decoy.jpg' %}">
                         </div>
                     </div>
                     <div class="third-section">
@@ -47,7 +59,7 @@
                             <p class="third-section-text-paragraph">Travel through a world made up of unique islands, each one focused on a key Python concept. As you land on a new island, you'll dive into chapters that combine clear explanations with hands-on coding practice. From learning the basics to tackling real challenges, every island is designed to teach you something new. Whether you're just getting started or leveling up, the journey is yours to explore at your own pace.</p>
                         </div>
                         <div class="third-section-images">
-                            <img src="{% static "images/decoy.jpg" %}">
+                            <img src="{% static 'Images/decoy.jpg' %}">
                         </div>
                     </div>
                     <div class="fourth-section">
@@ -56,7 +68,7 @@
                             <p class="fourth-section-text-paragraph">Inside each map, you’ll find a series of focused coding challenges as well as theory points designed to build your Python skills one concept at a time. As you complete each task, you unlock the next—creating a clear path of progression that’s both rewarding and educational. Every level introduces a new idea, gives you space to apply it, and helps you move forward with confidence. It’s not just about getting to the end—it’s about leveling up your logic, one solved problem at a time.</p>
                         </div>
                         <div class="fourth-section-images">
-                            <img src="{% static "images/decoy.jpg" %}">
+                            <img src="{% static 'Images/decoy.jpg' %}">
                         </div>
                     </div>
                 </div>
