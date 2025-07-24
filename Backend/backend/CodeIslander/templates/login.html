@@ -1,13 +1,24 @@
+{% load static %}
+{% load socialaccount %}
 <!DOCTYPE html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Document</title>
+		<link rel="stylesheet" href="{% static "css/login.css" %}">
+		<link rel="icon" href="{% static 'Images/favicon.ico' %}" type="image/x-icon" />
+		<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/fontawesome.min.css" rel="stylesheet">
+		<script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/js/all.min.js"></script>
+		<title>CodeIslander - Login</title>
 	</head>
 	<body>
-		{% load socialaccount %}
 		<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+		<div class="upperBar">
+			<div class="upperLogo">
+				<a href={% url "welcome" %}><img class="upperLogoImage" src="{% static "Images/new-logo.png" %}"></a>
+			</div>
+		</div>
 
 		<!-- messages block -->
 		{% if messages %}
@@ -20,24 +31,40 @@
 			</ul>
 		{% endif %}
 
-		<div class="media-options">
-			<a href="{% provider_login_url 'google' %}" class="field google"> <p>Login with Google <i class="fa-brands fa-google googleicon"></i></p> </a>
-			<a href="{% provider_login_url 'github' %}" class="field github"> <p>Login with github <i class="fa-brands fa-github"></i></p> </a>
+		<div class="pageContent">
+			<div class="pageTitle">
+				<img class="title" src="{% static "Images/new-logo.png" %}">
+				<hr>
+			</div>
+			<div class="loginForm">
+				<p>Continue with</p>
+				<div class="media-options">
+					<a href="{% provider_login_url 'google' %}" class="field google"> <p><i class="fa-brands fa-google googleicon"></i></p> </a>
+					<a href="{% provider_login_url 'github' %}" class="field github"> <p><i class="fa-brands fa-github"></i></p> </a>
+				</div>
+
+				<form method="post">
+					{% csrf_token %}
+					<div class="formContent">
+						<div class="usernamePart">
+							<label for="username">Username or Email</label>
+							<input class="usernameInput" type="text" placeholder="Username" name="username" required><br>
+						</div>
+						<div class="passwordPart">
+							<label for="password">Password</label>
+							<input class="passwordInput" type="password" placeholder="Password" name="password" required><br>
+						</div>
+						<div class="g-recaptcha" data-sitekey="6Let3HYrAAAAAPeg6hk_YxJpZlWXc6fwRMllkhM8"></div>
+						<div class="loginButton">
+							<button type="submit">Login</button> <br>
+						</div>
+						<div class="extraLinks">
+							<a href="{% url 'password_reset' %}">Forgot password?</a>
+							<a href="{% url 'register' %}">Register</a>
+						</div>
+					</div>
+				</form>
+			</div>
 		</div>
-
-
-		<form method="post">
-			{% csrf_token %}
-			<label for="username">Username/email:</label>
-			<input type="text" name="username" required><br>
-
-			<label for="password">Password:</label>
-			<input type="password" name="password" required><br>
-			<a href="{% url 'password_reset' %}">Forgot password?</a>
-
-			<div class="g-recaptcha" data-sitekey="6Let3HYrAAAAAPeg6hk_YxJpZlWXc6fwRMllkhM8"></div>
-			<button type="submit">Login</button> <br>
-			<a href="{% url 'register' %}">Register</a>
-		</form>
 	</body>
 </html>
