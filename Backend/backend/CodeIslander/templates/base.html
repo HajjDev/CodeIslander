@@ -1,36 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<title>CodeIslander - Welcome</title>
-		{% load static %}
-		<link rel="icon" href="{% static 'Images/favicon.ico' %}" type="image/x-icon" />
-		<link rel="stylesheet" href="{% static 'css/style.css' %}">
-		<link href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/fontawesome.min.css" rel="stylesheet">
-		<script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/js/all.min.js"></script>
-		{% block head_content %}
-		{% endblock %}
-	</head>
-	<body>
-		<header>
-			<div class="navbar">
-				<div class="home">
-					<img class="home-img" src="{% static 'Images/new-logo.png' %}">
-				</div>
-				<div class="links">
-					<a>Premium</a>	
-				</div>
-				<div class="links">
-					<a>About</a>
-				</div>
-			</div>
-		</header>
+    <head>
+        <meta charset="UTF-8">
+        <title>CodeIslander - Welcome</title>
+        {% load static %}
+        <link rel="icon" href="{% static 'Images/favicon.ico' %}" type="image/x-icon" />
+        <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
-		{% block content %}
-		{% endblock %}
+        <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.162.0/build/three.module.js",
+                "OrbitControls": "https://unpkg.com/three@0.162.0/examples/jsm/controls/OrbitControls.js",
+                "GLTFLoader": "https://unpkg.com/three@0.162.0/examples/jsm/loaders/GLTFLoader.js"
+            }
+        }
+        </script>
+        
+        {% block head_content %}{% endblock %}
+    </head>
+    <body>
+        <header>
+            <div class="navbar">
+                <div class="home">
+                    <img class="home-img" src="{% static 'Images/new-logo.png' %}">
+                </div>
+                <div class="links">
+                    <a>Premium</a>  
+                </div>
+                <div class="links">
+                    <a>About</a>
+                </div>
+            </div>
+        </header>
 
-		<footer>
-			<p>&copy; 2025 My Website. All rights reserved.</p>
-		</footer>
-	</body>
+        {% block content %}{% endblock %}
+
+        <footer>
+            <p>&copy; 2025 My Website. All rights reserved.</p>
+        </footer>
+    </body>
 </html>
