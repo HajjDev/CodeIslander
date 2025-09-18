@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Secure Python Code Runner</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/material-darker.min.css">
+
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.5; }
+        .CodeMirror { 
+            border: 1px solid #ccc;
+            height: 400px; 
+            font-size: 14px;
+        }
+        #run-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        #output {
+            background-color: #f4f4f4;
+            color: #333;
+            padding: 15px;
+            min-height: 50px;
+            white-space: pre-wrap;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Secure Python Code Runner 🐍</h2>
+    <p>Type your Python code below and click "Run Code" to execute it in a secure sandbox.</p>
+
+    <textarea id="editor">print("Hello from the secure runner!")</textarea>
+    
+    <br>
+    <button id="run-btn">Run Code</button>
+    
+    <h3>Output:</h3>
+    <pre id="output"></pre>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/python/python.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/edit/closebrackets.min.js"></script>
+
+    <script>
+        // Initialize CodeMirror on our textarea
+        const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
+            mode: 'python',
+            theme: 'material-darker',
+            lineNumbers: true,
+            autoCloseBrackets: true,
+        });
+
+        // Add event listener to the run button
+        document.getElementById('run-btn').addEventListener('click', async () => {
+            const code = editor.getValue();
+            const outputElement = document.getElementById('output');
+            
+            outputElement.textContent = 'Executing in secure container...';
+
+            try {
+                const response = await fetch('/CodeIslander/run-code-secure/', { // <-- Add the app name here
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ code: code })
+                });
+
+                const data = await response.json();
+                if (!response.ok) {
+                    throw new Error(data.error || 'An unknown error occurred.');
+                }
+
+                outputElement.textContent = data.output || data.error || 'No output produced.';
+
+            } catch (error) {
+                outputElement.textContent = `Error: ${error.message}`;
+            }
+        });
+    </script>
+</body>
+</html>

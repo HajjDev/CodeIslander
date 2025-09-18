@@ -1,0 +1,11 @@
+Django
+dj_database_url
+dotenv
+pathlib
+psycopg2-binary
+django-recaptcha
+requests
+pyotp
+django-allauth
+jwt
+PyJWT
