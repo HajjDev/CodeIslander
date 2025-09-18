@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Secure Python Code Runner</title>
+    <title>Python Code Challenge</title>
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/material-darker.min.css">
@@ -28,19 +28,36 @@
             white-space: pre-wrap;
             border: 1px solid #ddd;
             border-radius: 4px;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        /* ** NEW STYLES FOR PASS/FAIL ** */
+        #output.pass {
+            background-color: #e6ffed;
+            color: #2d6a4f;
+            border-color: #95d5b2;
+        }
+        #output.fail {
+            background-color: #ffebe6;
+            color: #9d2503;
+            border-color: #ffb3a0;
         }
     </style>
 </head>
 <body>
-    <h2>Secure Python Code Runner 🐍</h2>
-    <p>Type your Python code below and click "Run Code" to execute it in a secure sandbox.</p>
+    <h2>Python Code Challenge 🧪</h2>
+    <p>
+        Your code must pass our tests. Define a function <strong>add(a, b)</strong> that correctly returns the sum of two numbers.
+    </p>
 
-    <textarea id="editor">print("Hello from the secure runner!")</textarea>
+    <textarea id="editor">
+print("Hello world")
+</textarea>
     
     <br>
-    <button id="run-btn">Run Code</button>
+    <button id="run-btn">Run Tests</button>
     
-    <h3>Output:</h3>
+    <h3>Result:</h3>
     <pre id="output"></pre>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
@@ -48,7 +65,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/edit/closebrackets.min.js"></script>
 
     <script>
-        // Initialize CodeMirror on our textarea
         const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
             mode: 'python',
             theme: 'material-darker',
@@ -56,15 +72,16 @@
             autoCloseBrackets: true,
         });
 
-        // Add event listener to the run button
         document.getElementById('run-btn').addEventListener('click', async () => {
             const code = editor.getValue();
             const outputElement = document.getElementById('output');
             
-            outputElement.textContent = 'Executing in secure container...';
+            outputElement.textContent = 'Running tests in secure container...';
+
+            outputElement.classList.remove('pass', 'fail');
 
             try {
-                const response = await fetch('/CodeIslander/run-code-secure/', { // <-- Add the app name here
+                const response = await fetch('/CodeIslander/run-code-secure/', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ code: code })
@@ -75,10 +92,19 @@
                     throw new Error(data.error || 'An unknown error occurred.');
                 }
 
-                outputElement.textContent = data.output || data.error || 'No output produced.';
+                const resultText = data.output || data.error || 'No output produced.';
+                outputElement.textContent = resultText;
+                
+ 
+                if (resultText.startsWith('✅')) {
+                    outputElement.classList.add('pass');
+                } else if (resultText.startsWith('❌')) {
+                    outputElement.classList.add('fail');
+                }
 
             } catch (error) {
                 outputElement.textContent = `Error: ${error.message}`;
+                outputElement.classList.add('fail');
             }
         });
     </script>

@@ -1,24 +1,19 @@
-# Backend/Dockerfile
+# Backend/backend/Dockerfile
 
 FROM python:3.11-slim
 
-# Set an environment variable to ensure Python output is sent straight to the terminal
-ENV PYTHONUNBUFFERED 1
+# Install pytest, which is needed to run the tests
+RUN pip install pytest
 
-# Set the working directory inside the container
-WORKDIR /app
+# Create a new, non-privileged user to run the code
+RUN useradd --create-home --shell /bin/bash sandboxuser
 
-# Copy the requirements file from your Django project folder
-COPY ./backend/requirements.txt .
+# Switch to this new user
+USER sandboxuser
 
-# Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+# Set a working directory inside the container
+WORKDIR /home/sandboxuser
 
-# Copy your entire Django project folder into the container
-COPY ./backend .
-
-# Expose the port the app runs on
-EXPOSE 8000
-
-# The command to run your app
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# Copy your test file into the container's working directory.
+# This path assumes you run `docker build` from `Backend/backend/`.
+COPY ./CodeIslander/test_user_code.py .
