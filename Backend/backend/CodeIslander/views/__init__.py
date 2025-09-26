@@ -18,4 +18,4 @@ from .security.totp.activation.stopTotp import stopTotp
 from .security.totp.activation.disableTotp import disableTotp
 from .security.totp.verification.sendVerificationMail import sendVerificationMail
 from .security.totp.verification.verify import verify
-from .pages.code_runner import run_code_secure, code_runner_page
+from .pages.code_runner import run_code_secure, exercise_page

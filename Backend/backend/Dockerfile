@@ -16,4 +16,5 @@ WORKDIR /home/sandboxuser
 
 # Copy your test file into the container's working directory.
 # This path assumes you run `docker build` from `Backend/backend/`.
-COPY ./CodeIslander/test_user_code.py .
+COPY ./CodeIslander/tests/test_area.py .
+COPY ./CodeIslander/tests/test_repeat_string.py .

@@ -1,21 +1,19 @@
-# Backend/backend/CodeIslander/views.py
-
 import json
 import os
 import uuid
 import docker
 from django.conf import settings
 from django.http import JsonResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
+from ...models import Exercise
 
 # --- View to Render the HTML Page ---
-def code_runner_page(request):
-    """
-    This view handles the GET request to display the code runner page.
-    """
-    return render(request, 'runner.html')
-
+def exercise_page(request, exercise_id):
+    exercise = get_object_or_404(Exercise, pk=exercise_id)
+    prompt = {'exercise': exercise}
+    return render(request, "runner.html", prompt)
+    
 # --- View to Securely Execute Code ---
 
 # Initialize the Docker client
@@ -25,7 +23,7 @@ except docker.errors.DockerException:
     client = None
 
 @csrf_exempt
-def run_code_secure(request):
+def run_code_secure(request, exercise_id):
     """
     This view saves user code to a temp file, runs pytest inside a Docker
     container, and returns the detailed test result.
@@ -39,6 +37,9 @@ def run_code_secure(request):
     host_path = None
     container = None
     try:
+        exercise = get_object_or_404(Exercise, pk=exercise_id)
+        test_file_name = exercise.test_file
+        
         body = json.loads(request.body)
         code = body.get('code', '')
 
@@ -56,7 +57,7 @@ def run_code_secure(request):
 
         container = client.containers.run(
             'python-sandbox',
-            command=['pytest', 'test_user_code.py'],
+            command=['pytest', test_file_name],
             detach=True,
             mem_limit='128m',
             network_disabled=True,

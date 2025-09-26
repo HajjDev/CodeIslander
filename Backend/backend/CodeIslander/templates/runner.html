@@ -2,106 +2,80 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Python Code Challenge</title>
-    
+    <title>{{ exercise.title }}</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/material-darker.min.css">
-
     <style>
-        body { font-family: sans-serif; padding: 20px; line-height: 1.5; }
-        .CodeMirror { 
-            border: 1px solid #ccc;
-            height: 400px; 
-            font-size: 14px;
-        }
-        #run-btn {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin: 10px 0;
-            cursor: pointer;
-        }
-        #output {
-            background-color: #f4f4f4;
-            color: #333;
-            padding: 15px;
-            min-height: 50px;
-            white-space: pre-wrap;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            font-family: monospace;
-            font-size: 14px;
-        }
-        /* ** NEW STYLES FOR PASS/FAIL ** */
-        #output.pass {
-            background-color: #e6ffed;
-            color: #2d6a4f;
-            border-color: #95d5b2;
-        }
-        #output.fail {
-            background-color: #ffebe6;
-            color: #9d2503;
-            border-color: #ffb3a0;
-        }
+        body { font-family: sans-serif; display: flex; height: 100vh; margin: 0; }
+        .sidebar { width: 40%; padding: 20px; overflow-y: auto; border-right: 2px solid #eee; }
+        .runner { width: 60%; display: flex; flex-direction: column; padding: 20px; }
+        .CodeMirror { height: 40vh; }
+        #output { background-color: #f4f4f4; border: 1px solid #ddd; border-radius: 4px; padding: 15px; min-height: 50px; white-space: pre-wrap; font-family: monospace; font-size: 14px; flex-grow: 1; margin-top: 10px; }
+        #output.pass { background-color: #e6ffed; color: #2d6a4f; border-color: #95d5b2; }
+        #output.fail { background-color: #ffebe6; color: #9d2503; border-color: #ffb3a0; }
+        pre { background-color: #efefef; padding: 10px; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
     </style>
 </head>
 <body>
-    <h2>Python Code Challenge 🧪</h2>
-    <p>
-        Your code must pass our tests. Define a function <strong>add(a, b)</strong> that correctly returns the sum of two numbers.
-    </p>
 
-    <textarea id="editor">
-print("Hello world")
-</textarea>
-    
-    <br>
-    <button id="run-btn">Run Tests</button>
-    
-    <h3>Result:</h3>
-    <pre id="output"></pre>
+    <div class="sidebar">
+        <h1>{{ exercise.title }}</h1>
+        
+        <h3>📋 Subject</h3>
+        <p>{{ exercise.subject|safe }}</p>
+
+        {% if exercise.example %}
+            <h3>💡 Example</h3>
+            <pre><code>{{ exercise.example }}</code></pre>
+        {% endif %}
+
+        {% if exercise.hints %}
+            <h3>🤔 Hints</h3>
+            <p>{{ exercise.hints|safe }}</p>
+        {% endif %}
+    </div>
+
+    <div class="runner">
+        <textarea id="editor"># Your code here</textarea>
+        <button id="run-btn">Run Tests</button>
+        <h3>Result:</h3>
+        <pre id="output"></pre>
+    </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/python/python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/edit/closebrackets.min.js"></script>
-
     <script>
         const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
             mode: 'python',
             theme: 'material-darker',
             lineNumbers: true,
-            autoCloseBrackets: true,
         });
 
         document.getElementById('run-btn').addEventListener('click', async () => {
             const code = editor.getValue();
             const outputElement = document.getElementById('output');
+            const exerciseId = {{ exercise.id }};
             
-            outputElement.textContent = 'Running tests in secure container...';
-
+            outputElement.textContent = 'Running tests...';
             outputElement.classList.remove('pass', 'fail');
 
             try {
-                const response = await fetch('/CodeIslander/run-code-secure/', {
+                const response = await fetch(`/CodeIslander/run-code-secure/${exerciseId}/`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ code: code })
                 });
-
                 const data = await response.json();
-                if (!response.ok) {
-                    throw new Error(data.error || 'An unknown error occurred.');
-                }
-
-                const resultText = data.output || data.error || 'No output produced.';
+                if (!response.ok) throw new Error(data.error || 'An unknown error occurred.');
+                
+                const resultText = data.output || data.error || 'No output.';
                 outputElement.textContent = resultText;
                 
- 
                 if (resultText.startsWith('✅')) {
                     outputElement.classList.add('pass');
                 } else if (resultText.startsWith('❌')) {
                     outputElement.classList.add('fail');
                 }
-
             } catch (error) {
                 outputElement.textContent = `Error: ${error.message}`;
                 outputElement.classList.add('fail');

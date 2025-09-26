@@ -1,5 +1,5 @@
 from django.urls import path
-from CodeIslander.views import welcome, code_runner_page, register, run_code_secure, user_login, user_logout, user_home, verify, activate, reset_password, reset_confirmation, profile_view, reset_email, reset_username, activateChangeEmail, startTotp, enableTotp, stopTotp, disableTotp
+from CodeIslander.views import welcome, exercise_page, register, run_code_secure, user_login, user_logout, user_home, verify, activate, reset_password, reset_confirmation, profile_view, reset_email, reset_username, activateChangeEmail, startTotp, enableTotp, stopTotp, disableTotp
 
 urlpatterns = [
     path('', welcome, name='welcome'),
@@ -19,6 +19,6 @@ urlpatterns = [
     path('activateChange/<uidb64>/<token>', activateChangeEmail, name='activateEmailChange'),
     path('email_reset/', reset_email, name='email_reset'),
     path('username_reset/', reset_username, name='username_reset'),
-    path('runner/', code_runner_page, name='code_runner_page'),
-    path('run-code-secure/', run_code_secure, name='run_code_secure')
+    path('runner/<int:exercise_id>/', exercise_page, name='exercise_page'),
+    path('run-code-secure/<int:exercise_id>/', run_code_secure, name='run_code_secure')
 ]
