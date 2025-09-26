@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="theory-container">
+    <h1 class="theory-title">{{ theory.title }}</h1>
+    <p class="theory-content">{{ theory.content }}</p>
+    <p class="theory-example"><strong>Example:</strong> {{ theory.example }}</p>
+</div>
+{% endblock %}
