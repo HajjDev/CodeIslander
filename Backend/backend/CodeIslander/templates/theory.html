@@ -1,10 +1,75 @@
-{% extends "base.html" %}
-{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ theory.title }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f8;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        .theory-container {
+            max-width: 800px;
+            margin: 3rem auto;
+            padding: 2rem;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .theory-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #222;
+        }
+        .theory-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+        .theory-example {
+            background: #eef6fc;
+            border-left: 5px solid #007BFF;
+            padding: 1rem;
+            margin-bottom: 2rem;
+            border-radius: 5px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .theory-hints {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 1rem;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
 
-{% block content %}
 <div class="theory-container">
     <h1 class="theory-title">{{ theory.title }}</h1>
-    <p class="theory-content">{{ theory.content }}</p>
-    <p class="theory-example"><strong>Example:</strong> {{ theory.example }}</p>
+
+    <div class="theory-content">
+        {{ theory.content }}
+    </div>
+
+    {% if theory.example %}
+    <div class="theory-example">
+        <strong>Example:</strong>
+        <pre>{{ theory.example }}</pre>
+    </div>
+    {% endif %}
+
+    {% if theory.hints %}
+    <div class="theory-hints">
+        <strong>Hints:</strong>
+        <p>{{ theory.hints }}</p>
+    </div>
+    {% endif %}
 </div>
-{% endblock %}
+
+</body>
+</html>
+

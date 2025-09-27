@@ -13,6 +13,8 @@ def exercise_page(request, exercise_id):
     exercise = get_object_or_404(Exercise, pk=exercise_id)
     prompt = {'exercise': exercise}
     return render(request, "runner.html", prompt)
+
+
     
 # --- View to Securely Execute Code ---
 

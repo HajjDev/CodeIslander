@@ -6,6 +6,7 @@ class Exercise(models.Model):
     example = models.CharField(default="")
     hints = models.CharField(default="")
     test_file = models.CharField(default="")
+    prompt = models.CharField(default="")
     
     def __str__(self):
         return self.title

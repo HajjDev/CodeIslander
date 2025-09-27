@@ -1,0 +1,48 @@
+
+<div class="qcm-container">
+    <h1 class="qcm-title">{{ qcm.title }}</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% comment %}
+        Loop through questions using the prepared questions_data from the view.
+        Each qd has:
+            - qd.question
+            - qd.choices
+            - qd.is_multiple
+        {% endcomment %}
+        {% for qd in questions_data %}
+        <div class="question-block" style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #ddd;">
+            <h3>Question {{ forloop.counter }}: {{ qd.question.text }}</h3>
+
+            {% comment %}
+            Determine if the question has multiple correct answers:
+            If yes, use checkboxes; otherwise, use radio buttons
+            {% endcomment %}
+            {% if qd.is_multiple %}
+                {% for choice in qd.choices %}
+                <div class="choice">
+                    <label>
+                        <input type="checkbox" name="question_{{ qd.question.id }}" value="{{ choice.id }}">
+                        {{ choice.text }}
+                    </label>
+                </div>
+                {% endfor %}
+            {% else %}
+                {% for choice in qd.choices %}
+                <div class="choice">
+                    <label>
+                        <input type="radio" name="question_{{ qd.question.id }}" value="{{ choice.id }}">
+                        {{ choice.text }}
+                    </label>
+                </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <button type="submit" style="padding: 0.5rem 1rem; font-size: 1rem;">Submit</button>
+    </form>
+</div>
+
