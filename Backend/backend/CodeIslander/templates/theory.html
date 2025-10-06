@@ -11,39 +11,53 @@
             padding: 0;
             color: #333;
         }
+
         .theory-container {
-            max-width: 800px;
+            max-width: 1000px;
             margin: 3rem auto;
             padding: 2rem;
             background: #fff;
             border-radius: 10px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            overflow-wrap: break-word;  /* wrap long words properly */
+            word-wrap: break-word;      /* fallback for older browsers */
+            box-sizing: border-box;     /* include padding in width */
         }
+
         .theory-title {
             font-size: 2rem;
             margin-bottom: 1rem;
             color: #222;
         }
+
         .theory-content {
             font-size: 1.1rem;
             line-height: 1.8;
             margin-bottom: 2rem;
+            white-space: pre-wrap;      /* preserves line breaks but wraps long lines */
+            max-width: 100%;            /* prevent content from overflowing */
         }
+
         .theory-example {
             background: #eef6fc;
             border-left: 5px solid #007BFF;
             padding: 1rem;
-            margin-bottom: 2rem;
+            margin: 1.5rem 0;
             border-radius: 5px;
             font-family: monospace;
-            white-space: pre-wrap;
+            white-space: pre-wrap;      /* preserves line breaks but wraps long lines */
+            overflow-x: auto;           /* scrolls if content is very wide */
+            max-width: 100%;            /* prevent example from overflowing */
         }
-        .theory-hints {
-            background: #fff3cd;
-            border-left: 5px solid #ffc107;
-            padding: 1rem;
-            border-radius: 5px;
+
+        /* Ensure images and tables never break the container */
+        .theory-content img,
+        .theory-content table {
+            max-width: 100%;
+            height: auto;
         }
+
+
     </style>
 </head>
 <body>
@@ -52,24 +66,9 @@
     <h1 class="theory-title">{{ theory.title }}</h1>
 
     <div class="theory-content">
-        {{ theory.content }}
+        <pre>{{ content_with_examples|safe }}</pre>
     </div>
-
-    {% if theory.example %}
-    <div class="theory-example">
-        <strong>Example:</strong>
-        <pre>{{ theory.example }}</pre>
-    </div>
-    {% endif %}
-
-    {% if theory.hints %}
-    <div class="theory-hints">
-        <strong>Hints:</strong>
-        <p>{{ theory.hints }}</p>
-    </div>
-    {% endif %}
 </div>
 
 </body>
 </html>
-
