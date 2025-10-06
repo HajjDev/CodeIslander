@@ -1,8 +1,10 @@
 from django.db import models
+from .exercise import Exercise
 
 class Theory(models.Model):
     title = models.CharField(max_length=200, default='')
     content = models.TextField(default='')
+    exercisesUnlocked = models.ManyToManyField(Exercise, blank=True)
 
     def __str__(self):
         return self.title

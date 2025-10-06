@@ -4,13 +4,23 @@ import uuid
 import docker
 from django.conf import settings
 from django.http import JsonResponse
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
+from django.core.exceptions import PermissionDenied
 from ...models import Exercise
 
 # --- View to Render the HTML Page ---
+@login_required
 def exercise_page(request, exercise_id):
     exercise = get_object_or_404(Exercise, pk=exercise_id)
+    
+    if request.user.is_staff:
+        perm = True
+    else:
+        perm = request.user.unlockedExercises.filter(pk=exercise.id).exists()
+    if not perm:
+        return redirect("home")
     prompt = {'exercise': exercise}
     return render(request, "runner.html", prompt)
 
