@@ -45,7 +45,6 @@ def theory_detail(request, theory_id):
         content = examples.get(num, f"[Missing example {num}]")
         return f'''
             <div class="theory-example">
-                <strong>Example {num}:</strong>
                 <pre>{content}</pre>
             </div>
         '''

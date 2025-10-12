@@ -2,6 +2,7 @@ from django.db import models
 from .exercise import Exercise
 
 class Theory(models.Model):
+    chapter = models.CharField(max_length=200, default='')
     title = models.CharField(max_length=200, default='')
     content = models.TextField(default='')
     exercisesUnlocked = models.ManyToManyField(Exercise, blank=True)
