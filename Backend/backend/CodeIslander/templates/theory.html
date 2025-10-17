@@ -3,59 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <title>{{ theory.title }}</title>
+
+    <!-- 1. Import Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;700&family=Lora:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+
+    <!-- 2. Light theme for highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/stackoverflow-light.min.css">
+
     <style>
+        /* --- General Page Styling --- */
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f6f8;
+            /* Using Lora as the base font for readability */
+            font-family: 'Lora', serif;
+            background-color: #f8f9fa; /* A softer, light grey background */
             margin: 0;
             padding: 0;
-            color: #333;
+            color: #343a40; /* A dark grey for text, softer than pure black */
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
+        /* --- Main Content Container --- */
         .theory-container {
-            max-width: 1000px;
-            margin: 3rem auto;
-            padding: 2rem;
+            max-width: 900px;
+            margin: 4rem auto;
+            padding: 3rem;
             background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            overflow-wrap: break-word;  /* wrap long words properly */
-            word-wrap: break-word;      /* fallback for older browsers */
-            box-sizing: border-box;     /* include padding in width */
+            border-radius: 12px;
+            /* A more subtle and modern shadow */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.07);
+            box-sizing: border-box;
+        }
+
+        /* --- Typography Hierarchy --- */
+        .theory-chapter {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #6c757d; /* A muted grey for the chapter */
+            margin-bottom: 0.25rem;
         }
 
         .theory-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: #222;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 2.5rem;
+            color: #212529; /* A strong, dark color for the main title */
+            margin-top: 0;
+            margin-bottom: 2rem;
         }
 
         .theory-content {
             font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-            white-space: pre-wrap;      /* preserves line breaks but wraps long lines */
-            max-width: 100%;            /* prevent content from overflowing */
+            line-height: 1.9; /* Generous line height for easy reading */
+            white-space: pre-wrap;
+        }
+        
+        /* Making links look better */
+        .theory-content a {
+            color: #007bff;
+            text-decoration: none;
+            border-bottom: 1px solid #cce5ff;
+            transition: background-color 0.2s ease;
+        }
+        .theory-content a:hover {
+            background-color: #eaf4ff;
         }
 
-        .theory-example {
-            background: #eef6fc;
-            border-left: 5px solid #007BFF;
-            padding: 1
-            rem;
-            font-family: monospace;
-            white-space: pre-wrap;      /* preserves line breaks but wraps long lines */
-            overflow-x: auto;           /* scrolls if content is very wide */
-            max-width: 100%;            /* prevent example from overflowing */
+        /* --- Code & Example Styling --- */
+        
+        /* The <pre> tag wraps our code blocks. This is where we reduce the vertical space. */
+        .theory-content pre {
+            margin-top: 1rem;    /* REDUCED vertical space */
+            margin-bottom: 1rem; /* REDUCED vertical space */
+        }
+        
+        /* Highlighted code blocks */
+        .theory-content pre code.hljs {
+            font-family: 'JetBrains Mono', monospace;
+            border-radius: 8px;
+            padding: 1em;
+            font-size: 0.9rem;
+            border: 1px solid #e9ecef; /* A light, clean border */
         }
 
-        /* Ensure images and tables never break the container */
+        /* Plain text examples */
+        .theory-example-text {
+            font-family: 'JetBrains Mono', monospace;
+            background-color: #f8f9fa; /* Light grey background */
+            border-left: 4px solid #dee2e6; /* Subtler border color */
+            padding: 1rem;
+            margin: 1rem 0; /* REDUCED vertical space */
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            color: #495057;
+        }
+        
+        /* --- Media Styling --- */
         .theory-content img,
         .theory-content table {
             max-width: 100%;
             height: auto;
+            border-radius: 8px; /* Slightly rounded corners for images */
         }
-
 
     </style>
 </head>
@@ -66,9 +120,14 @@
     <h2 class="theory-title">{{ theory.title }}</h2>
 
     <div class="theory-content">
-        <pre>{{ content_with_examples|safe }}</pre>
+        {{ content_with_examples|safe }}
     </div>
 </div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script>
+    hljs.highlightAll();
+</script>
 
 </body>
 </html>

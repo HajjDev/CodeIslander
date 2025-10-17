@@ -22,5 +22,5 @@ urlpatterns = [
     path('runner/<int:exercise_id>/', exercise_page, name='exercise_page'),
     path('run-code-secure/<int:exercise_id>/', run_code_secure, name='run_code_secure'),
     path('qcm/<int:qcm_id>/', qcm_detail, name='qcm_detail'),
-     path('theory/<int:theory_id>/', theory_detail, name='theory_detail')
+    path('theory/<int:theory_id>/', theory_detail, name='theory_detail')
 ]
