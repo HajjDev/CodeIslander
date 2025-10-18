@@ -14,7 +14,24 @@
         {% endcomment %}
         {% for qd in questions_data %}
         <div class="question-block" style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #ddd;">
-            <h3>Question {{ forloop.counter }}: {{ qd.question.text }}</h3>
+            <p class="question-text">Question {{ forloop.counter }}:<br>{{ qd.question.text }}</p>
+        <style>
+                .question-text {
+                white-space: pre-wrap;   /* ✅ preserves newlines and indentation */
+                font-weight: 500;
+                font-size: 1rem;           /* slightly bigger than normal text */
+                line-height: 1.5;            /* improves readability for multiline text */
+                }
+                .choice-input {
+                    font-weight: 800;       /* slightly bold */
+                    font-size: 1.5rem;      /* bigger font */
+                    margin-bottom: 0.5rem;  /* spacing between choices */
+                    display: block;         /* each choice on its own line */
+                    cursor: pointer;        /* makes it clickable */
+                }
+
+
+        </style>    
 
             {% comment %}
             Determine if the question has multiple correct answers:
