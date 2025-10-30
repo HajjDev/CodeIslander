@@ -1,45 +1,200 @@
+<style>
+    /* Define some colors */
+    :root {
+        --primary-color: #007BFF;
+        --light-gray: #f4f4f4;
+        --medium-gray: #ddd;
+        --dark-gray: #333;
+        --correct-green: #28a745;
+        --incorrect-red: #dc3545;
+        --white: #ffffff;
+    }
+
+    /* Basic page setup */
+    body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+        background-color: var(--light-gray);
+        color: var(--dark-gray);
+        line-height: 1.6;
+    }
+
+    /* Container for both pages */
+    .qcm-container,
+    .qcm-result-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 2rem;
+        background-color: var(--white);
+        border-radius: 8px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    /* --- Title --- */
+    .qcm-title {
+        white-space: pre-wrap; /* You had this, it's good! */
+        font-weight: 700;
+        font-size: 2rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        color: var(--primary-color);
+    }
+
+    /* --- Question Block --- */
+    .question-block {
+        margin-bottom: 1.5rem;
+        padding: 1.5rem;
+        border: 1px solid var(--medium-gray);
+        border-radius: 8px;
+        background: #fdfdfd;
+    }
+
+    /* --- Question Text (Both Pages) --- */
+    .question-text {
+        white-space: pre-wrap;   /* Good, keep this */
+        font-weight: 600;      /* Bolder */
+        font-size: 1rem;       /* Bigger */
+        line-height: 1.5;
+        margin-bottom: 1rem;
+    }
+    
+    /* === QCM Detail (Form) Styles === */
+
+    .choice {
+        margin-bottom: 0.75rem;
+    }
+
+    .choice label {
+        display: block;
+        padding: 0.75rem 1rem;
+        border: 1px solid var(--medium-gray);
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.2s, border-color 0.2s;
+    }
+
+    .choice label:hover {
+        background-color: #f9f9f9;
+        border-color: #bbb;
+    }
+    
+    /* Style the input (radio/checkbox) itself */
+    .choice input[type="radio"],
+    .choice input[type="checkbox"] {
+        margin-right: 0.75rem;
+        /* Make the default inputs a bit bigger */
+        transform: scale(1.2);
+    }
+
+    /* --- Button (Submit & Try Again) --- */
+    .btn-submit,
+    .btn-try-again {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+        padding: 0.75rem 1.5rem;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--white);
+        background-color: var(--primary-color);
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-submit:hover,
+    .btn-try-again:hover {
+        background-color: #0056b3;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+
+    /* === QCM Result Styles === */
+
+    /* --- Score Display --- */
+    .score-display {
+        font-size: 1.75rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background-color: var(--light-gray);
+        border-radius: 5px;
+    }
+
+    .score-display strong {
+        color: var(--primary-color);
+        font-size: 2rem;
+    }
+
+    /* --- Result List --- */
+    .result-choices {
+        list-style-type: none;
+        padding-left: 0;
+    }
+    .result-choices li {
+        padding: 0.5rem;
+        border: 1px solid #eee;
+        border-radius: 4px;
+        margin-bottom: 0.5rem;
+    }
+
+    /* --- Feedback text (Correct/Incorrect) --- */
+    .result-status {
+        font-size: 1.2rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-top: 1rem;
+        padding: 0.5rem;
+        border-radius: 4px;
+        text-align: center;
+    }
+    .result-status.correct {
+        color: var(--correct-green);
+        background-color: #eaf6ec;
+    }
+    .result-status.incorrect {
+        color: var(--incorrect-red);
+        background-color: #fbebee;
+    }
+    
+    /* --- Highlighting answers in results --- */
+    .feedback-correct {
+        font-weight: 700;
+        color: var(--correct-green);
+    }
+    .feedback-selected {
+        font-style: italic;
+        color: #555;
+        margin-left: 0.5rem;
+        /* Add a checkmark or X for visual cue */
+    }
+    .feedback-selected.wrong {
+        color: var(--incorrect-red);
+    }
+    .feedback-selected.right {
+        color: var(--correct-green);
+    }
+    
+</style>
 
 <div class="qcm-container">
-    <h1 class="qcm-title">{{ qcm.title }}</h1>
+    <h1 class="qcm-title">MCQ - {{ qcm.title }}</h1>
 
     <form method="post">
         {% csrf_token %}
 
-        {% comment %}
-        Loop through questions using the prepared questions_data from the view.
-        Each qd has:
-            - qd.question
-            - qd.choices
-            - qd.is_multiple
-        {% endcomment %}
         {% for qd in questions_data %}
-        <div class="question-block" style="margin-bottom: 1.5rem; padding: 1rem; border: 1px solid #ddd;">
-            <p class="question-text">Question {{ forloop.counter }}:<br>{{ qd.question.text }}</p>
-        <style>
-                .question-text {
-                white-space: pre-wrap;   /* ✅ preserves newlines and indentation */
-                font-weight: 500;
-                font-size: 1rem;           /* slightly bigger than normal text */
-                line-height: 1.5;            /* improves readability for multiline text */
-                }
-                .qcm-title {
-                    white-space: pre-wrap;
-                }
-                .choice-input {
-                    font-weight: 800;       /* slightly bold */
-                    font-size: 1.5rem;      /* bigger font */
-                    margin-bottom: 0.5rem;  /* spacing between choices */
-                    display: block;         /* each choice on its own line */
-                    cursor: pointer;        /* makes it clickable */
-                }
-
-
-        </style>    
-
-            {% comment %}
-            Determine if the question has multiple correct answers:
-            If yes, use checkboxes; otherwise, use radio buttons
+        <div class="question-block">
+            {% comment %} 
+            Made the question text bold and more semantic 
             {% endcomment %}
+            <p class="question-text">
+                Question {{ forloop.counter }}:<br>
+                <strong>{{ qd.question.text }}</strong>
+            </p>
+
             {% if qd.is_multiple %}
                 {% for choice in qd.choices %}
                 <div class="choice">
@@ -62,7 +217,9 @@
         </div>
         {% endfor %}
 
-        <button type="submit" style="padding: 0.5rem 1rem; font-size: 1rem;">Submit</button>
+        {% comment %} 
+        Applied the new button style 
+        {% endcomment %}
+        <button type="submit" class="btn-submit">Submit</button>
     </form>
 </div>
-
