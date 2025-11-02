@@ -2,10 +2,11 @@ from django.db import models
 
 class Exercise(models.Model):
     title = models.CharField(default="", max_length=200)
-    subject = models.TextField(default="") # Use TextField for longer subjects
-    example = models.TextField(default="", blank=True, null=True) # TextField is better
-    hints = models.TextField(default="", blank=True, null=True)   # TextField is better
-    prompt = models.TextField(default="", blank=True, null=True)  # TextField is better
+    subject = models.CharField(default="")
+    example = models.CharField(default="",blank=True, null=True)
+    hints = models.CharField(default="", blank=True, null=True)
+    prompt = models.CharField(default="", blank=True, null=True)
+    solution = models.CharField(default="",blank=True, null=True)
 
     function_to_test = models.CharField(
         max_length=100, 

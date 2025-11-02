@@ -203,7 +203,7 @@
         <div>{{ exercise.subject|safe }}</div>
 
         {% if exercise.example %}
-            <h3>💡 Example</h3>
+            <h3>💡 Exercise description</h3>
             <pre><code>{{ exercise.example }}</code></pre>
         {% endif %}
 
@@ -211,6 +211,12 @@
             <h3>🤔 Hints</h3>
             <div>{{ exercise.hints|safe }}</div>
         {% endif %}
+
+        {% if exercise.solution %}
+            <h3>✅ Solution</h3>
+            <pre><code>{{ exercise.solution }}</code></pre>
+        {% endif %}
+
     </div>
 
     <div class="runner">
