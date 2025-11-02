@@ -2,18 +2,196 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ exercise.title }}</title>
+    
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/material-darker.min.css">
+    
     <style>
-        body { font-family: sans-serif; display: flex; height: 100vh; margin: 0; }
-        .sidebar { width: 40%; padding: 20px; overflow-y: auto; border-right: 2px solid #eee; }
-        .runner { width: 60%; display: flex; flex-direction: column; padding: 20px; }
-        .CodeMirror { height: 40vh; }
-        #output { background-color: #f4f4f4; border: 1px solid #ddd; border-radius: 4px; padding: 15px; min-height: 50px; white-space: pre-wrap; font-family: monospace; font-size: 14px; flex-grow: 1; margin-top: 10px; }
-        #output.pass { background-color: #e6ffed; color: #2d6a4f; border-color: #95d5b2; }
-        #output.fail { background-color: #ffebe6; color: #9d2503; border-color: #ffb3a0; }
-        pre { background-color: #efefef; padding: 10px; border-radius: 4px; white-space: pre-wrap; word-wrap: break-word; }
+        :root {
+            --color-bg-light: #f8f9fa;
+            --color-bg-dark: #121212;
+            --color-bg-sidebar: #ffffff;
+            --color-bg-runner: #f8f9fa;
+            --color-bg-editor: #263238; /* material-darker bg */
+            --color-bg-output: #ffffff;
+            --color-text: #343a40;
+            --color-text-light: #6c757d;
+            --color-border: #dee2e6;
+            --color-primary: #007bff;
+            --color-primary-hover: #0056b3;
+            --color-success: #28a745;
+            --color-success-bg: #e9f7eb;
+            --color-danger: #dc3545;
+            --color-danger-bg: #fbebee;
+            --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            --font-mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+        }
+
+        body {
+            font-family: var(--font-main);
+            color: var(--color-text);
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            background-color: var(--color-bg-light);
+        }
+
+        /* --- Sidebar (Prompt) --- */
+        .sidebar {
+            width: 40%;
+            height: 100vh;
+            padding: 2.5rem;
+            overflow-y: auto;
+            border-right: 1px solid var(--color-border);
+            background-color: var(--color-bg-sidebar);
+            box-sizing: border-box; /* Ensures padding doesn't break layout */
+        }
+        .sidebar h1 {
+            font-size: 2rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+        }
+        .sidebar h3 {
+            font-size: 1.25rem;
+            color: var(--color-text);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 8px;
+            margin-top: 2rem;
+        }
+        .sidebar p, .sidebar li {
+            line-height: 1.6;
+            color: var(--color-text-light);
+        }
+        .sidebar pre {
+            background-color: #f1f3f5;
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* --- Runner (Editor & Output) --- */
+        .runner {
+            width: 60%;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background-color: var(--color-bg-runner);
+            box-sizing: border-box;
+        }
+        
+        /* CodeMirror editor styling */
+        .editor-container {
+            height: 60vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .CodeMirror {
+            flex-grow: 1;
+            height: auto;
+            font-size: 0.95rem;
+        }
+
+        /* Controls: Button */
+        .controls {
+            padding: 1rem 1.5rem;
+            background-color: #fdfdfd;
+            border-bottom: 1px solid var(--color-border);
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+        
+        #run-btn {
+            background-color: var(--color-primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        #run-btn:hover {
+            background-color: var(--color-primary-hover);
+        }
+        #run-btn:active {
+            transform: scale(0.98);
+        }
+        #run-btn:disabled {
+            background-color: #a0a0a0;
+            cursor: not-allowed;
+        }
+        
+        /* Spinner for loading state */
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-right: 10px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* --- Output Area --- */
+        .output-container {
+            flex-grow: 1; /* Takes remaining space */
+            padding: 1rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .output-container h3 {
+            margin: 0 0 1rem 0;
+            font-size: 1.25rem;
+        }
+        #output {
+            flex-grow: 1;
+            background-color: var(--color-bg-output);
+            border: 1px solid var(--color-border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            white-space: pre-wrap;
+            line-height: 1.5;
+            color: #333;
+        }
+        
+        /* Output result themes */
+        #output.pass {
+            background-color: var(--color-success-bg);
+            border-color: var(--color-success);
+            color: #155724;
+        }
+        #output.fail {
+            background-color: var(--color-danger-bg);
+            border-color: var(--color-danger);
+            color: #721c24;
+        }
+        /* Specific styles for test results */
+        #output .test-case { margin-bottom: 0.75rem; }
+        #output .test-pass { color: var(--color-success); }
+        #output .test-fail { color: var(--color-danger); font-weight: 600; }
+        #output .test-details {
+            font-size: 0.85rem;
+            margin-left: 2rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--color-border);
+            color: var(--color-text-light);
+        }
     </style>
 </head>
 <body>
@@ -22,7 +200,7 @@
         <h1>{{ exercise.title }}</h1>
         
         <h3>📋 Subject</h3>
-        <p>{{ exercise.subject|safe }}</p>
+        <div>{{ exercise.subject|safe }}</div>
 
         {% if exercise.example %}
             <h3>💡 Example</h3>
@@ -31,33 +209,55 @@
 
         {% if exercise.hints %}
             <h3>🤔 Hints</h3>
-            <p>{{ exercise.hints|safe }}</p>
+            <div>{{ exercise.hints|safe }}</div>
         {% endif %}
     </div>
 
     <div class="runner">
-        <textarea id="editor">{{ exercise.prompt }}</textarea>
-        <button id="run-btn">Run Tests</button>
-        <h3>Result:</h3>
-        <pre id="output"></pre>
+        
+        <div class="editor-container">
+            <textarea id="editor">{{ exercise.prompt }}</textarea>
+        </div>
+        
+        <div class="controls">
+            <button id="run-btn">
+                <span>Run Tests</span>
+            </button>
+        </div>
+
+        <div class="output-container">
+            <h3>Result:</h3>
+            <pre id="output">Click "Run Tests" to check your code.</pre>
+        </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/python/python.min.js"></script>
+    
     <script>
         const editor = CodeMirror.fromTextArea(document.getElementById('editor'), {
             mode: 'python',
             theme: 'material-darker',
             lineNumbers: true,
+            indentUnit: 4,
         });
 
-        document.getElementById('run-btn').addEventListener('click', async () => {
+        const runButton = document.getElementById('run-btn');
+        const outputElement = document.getElementById('output');
+        
+        const exerciseId = '{{ exercise.id }}';
+
+        const originalButtonHTML = runButton.innerHTML;
+
+        runButton.addEventListener('click', async () => {
             const code = editor.getValue();
-            const outputElement = document.getElementById('output');
-            const exerciseId = {{ exercise.id }};
             
             outputElement.textContent = 'Running tests...';
             outputElement.classList.remove('pass', 'fail');
+            outputElement.innerHTML = ''; 
+            runButton.disabled = true;
+            runButton.innerHTML = '<div class="spinner"></div><span>Running...</span>';
+
 
             try {
                 const response = await fetch(`/CodeIslander/run-code-secure/${exerciseId}/`, {
@@ -65,22 +265,93 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ code: code })
                 });
+                
                 const data = await response.json();
-                if (!response.ok) throw new Error(data.error || 'An unknown error occurred.');
-                
-                const resultText = data.output || data.error || 'No output.';
-                outputElement.textContent = resultText;
-                
-                if (resultText.startsWith('✅')) {
-                    outputElement.classList.add('pass');
-                } else if (resultText.startsWith('❌')) {
-                    outputElement.classList.add('fail');
+
+                if (!response.ok) {
+               
+                    let errMsg = data.message || data.error || 'A server error occurred.';
+                    
+          
+                    if (data.stderr) {
+                        errMsg += `\n\n--- Container Error Log ---\n${data.stderr}`;
+                    }
+                    throw new Error(errMsg);
                 }
+        
+
+                if (data.status === 'error') {
+                    throw new Error(data.message || 'The test runner failed to execute.');
+                }
+
+                if (data.status === 'completed') {
+                    buildResults(data.results);
+                } else {
+                    throw new Error('Received an unknown response from the server.');
+                }
+
             } catch (error) {
+   
                 outputElement.textContent = `Error: ${error.message}`;
                 outputElement.classList.add('fail');
+            } finally {
+                runButton.disabled = false;
+                runButton.innerHTML = originalButtonHTML;
             }
         });
+
+
+        function buildResults(results) {
+            let allPassed = true;
+            
+            if (results.length === 0) {
+                outputElement.textContent = 'Warning: No test cases were found for this exercise.';
+                outputElement.classList.add('fail');
+                return;
+            }
+            
+
+            const fragment = document.createDocumentFragment();
+
+            for (const test of results) {
+                const testCaseEl = document.createElement('div');
+                testCaseEl.className = 'test-case';
+                
+                if (test.passed) {
+                    testCaseEl.className += ' test-pass';
+                    testCaseEl.textContent = `✅ ${test.name}`;
+                } else {
+                    allPassed = false;
+                    testCaseEl.className += ' test-fail';
+ 
+                    const failMsg = document.createElement('div');
+                    failMsg.textContent = `❌ ${test.name}`;
+       
+                    const detailsEl = document.createElement('div');
+                    detailsEl.className = 'test-details';
+                 
+                    const expectedEl = document.createElement('div');
+                    expectedEl.textContent = `Expected: ${test.expected}`;
+                    const actualEl = document.createElement('div');
+                    actualEl.textContent = `Got:      ${test.actual}`;
+                    
+                    detailsEl.appendChild(expectedEl);
+                    detailsEl.appendChild(actualEl);
+                    
+                    testCaseEl.appendChild(failMsg);
+                    testCaseEl.appendChild(detailsEl);
+                }
+                fragment.appendChild(testCaseEl);
+            }
+
+            outputElement.appendChild(fragment);
+            
+            if (allPassed) {
+                outputElement.classList.add('pass');
+            } else {
+                outputElement.classList.add('fail');
+            }
+        }
     </script>
 </body>
 </html>
