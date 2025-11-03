@@ -21,3 +21,4 @@ from .security.totp.verification.verify import verify
 from .pages.code_runner import run_code_secure, exercise_page
 from .pages.qcm_details import qcm_detail
 from .pages.theory import theory_detail
+from .pages.map1 import map1
