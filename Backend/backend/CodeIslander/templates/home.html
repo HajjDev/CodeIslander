@@ -26,9 +26,9 @@ document.getElementById('canvas-container').appendChild(renderer.domElement);
 // --- Controls ---
 const controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
-controls.minDistance = 0;
-controls.maxDistance = 10;
-controls.maxPolarAngle = THREE.MathUtils.degToRad(90);
+controls.minDistance = 0.5;
+controls.maxDistance = 5;
+controls.maxPolarAngle = THREE.MathUtils.degToRad(88);
 
 // Right-click pan restriction
 controls.enablePan = true;
@@ -72,7 +72,7 @@ window.addEventListener('click', onClick, false);
 // --- Load Model ---
 const loader = new GLTFLoader();
 loader.load(
-    "{% static '3d_assets/Island.glb' %}",
+    "{% static '3d_assets/Islands.glb' %}",
     (gltf) => {
         console.log("Model loaded successfully!");
         const model = gltf.scene;

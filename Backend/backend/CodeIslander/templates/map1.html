@@ -79,7 +79,7 @@ window.addEventListener('click', onClick, false);
 // --- Load Model ---
 const loader = new GLTFLoader();
 loader.load(
-    "{% static '3d_assets/Island.glb' %}",
+    "{% static '3d_assets/mapchap1.glb' %}",
     (gltf) => {
         console.log("Model loaded successfully!");
         const model = gltf.scene;
@@ -115,7 +115,12 @@ loader.load(
         controls.target.copy(sphere.center);
 
         // Camera starting position
-        camera.position.set(-1.661, 0.818, 1.099);
+        camera.position.set(
+        0.020108667862090784,
+         0.5979285023844,
+        -1.2147135336181227
+         );
+
         camera.lookAt(sphere.center);
 
         controls.update();
