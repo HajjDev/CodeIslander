@@ -6,7 +6,7 @@
         {% load static %}
         <link rel="icon" href="{% static 'Images/favicon.ico' %}" type="image/x-icon" />
         <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
+        <link rel="stylesheet" href="{% static 'css/vip.css' %}">
         <script type="importmap">
         {
             "imports": {
@@ -20,23 +20,49 @@
         {% block head_content %}{% endblock %}
     </head>
 <body>
-    <aside class="sidebar__wrapper">
-        <ul class="sidebar__list">
-            <li class="sidebar__item selected">
-                <a href="#"><span class="icon">⚡</span> Info</a>
-            </li>
-            <li class="sidebar__item">
-                <a href="#"><span class="icon">🏠</span> Home</a>
-            </li>
-            <li class="sidebar__item">
-                <a href="#"><span class="icon">🔒</span> Profile</a>
-            </li>
-        </ul>
+<aside class="sidebar__wrapper" id="sidebar">
+    <!-- Sidebar Header / Logo -->
+    <div class="sidebar-header">
+        <a href="home" class="header-logo" id="sidebar-logo">
+            <img src="/static/Images/new-logo.png" alt="logo">
+        </a>
+    </div>
 
-        <div class="sidebar__settings">
-            <a href="#"><span class="icon">⚙️</span> Settings</a>
-        </div>
-    </aside>
+    <!-- Navigation List -->
+    <ul class="sidebar__list">
+        <li class="sidebar__item selected">
+            <a href="{% url 'vip' %}"><span class="icon">⚡</span> VIP</a>
+        </li>
+        <li class="sidebar__item">
+            <a href="{% url 'home' %}"><span class="icon">🏠</span> Home</a>
+        </li>
+        <li class="sidebar__item">
+            <a href="{% url 'profile' %}"><span class="icon">🔒</span> Profile</a>
+        </li>
+        <li class="sidebar__item">
+            <a href="{% url 'updates' %}"><span class="icon">📢</span> updates</a>
+        </li>
+        <li class="sidebar__item">
+            <a href="{% url 'support' %}"><span class="icon">🛠️</span> Support/help</a>
+        </li>
+    </ul>
+
+    
+    <div class="sidebar__bottom">
+        <a href="{% url 'logout' %}"><span class="icon">🔓</span> Logout</a>
+    </div>
+</aside>
+
+<script>
+    const sidebar = document.getElementById('sidebar');
+    const logo = document.getElementById('sidebar-logo');
+
+    logo.addEventListener('click', (e) => {
+        e.preventDefault(); // prevent navigation
+        sidebar.classList.toggle('collapsed');
+    });
+</script>
+
 
     <main>
         {% block content %}{% endblock %}

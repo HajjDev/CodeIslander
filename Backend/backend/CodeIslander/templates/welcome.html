@@ -1,11 +1,11 @@
-{% extends "base.html" %}
+
 {% load static %}
 
-{% block head_content %}
-        <link rel="stylesheet" href="{% static 'css/welcome.css' %}">
-{% endblock %}
 
-{% block content %}
+        <link rel="stylesheet" href="{% static 'css/welcome.css' %}">
+
+
+
     <div class="background-image">
         <img class="actual-image" src="{% static 'Images/ha.webp' %}" alt="Background">
     </div>
@@ -115,7 +115,7 @@
                             <tr>
                                 <td>Unlock solutions for the exercises</td>
                                 <td>No solutions</td>
-                                <td>Solutionsunlocked after n trys</td>
+                                <td>Solutions unlocked after n trys</td>
                             </tr>
                         </tbody>
                     </table>
@@ -137,4 +137,3 @@
             </div>
         </div>
     </div>
-{% endblock %}

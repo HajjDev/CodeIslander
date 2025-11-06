@@ -1,10 +1,13 @@
 from django.urls import path
-from CodeIslander.views import welcome, exercise_page, qcm_detail, theory_detail, register, run_code_secure, user_login, user_logout, user_home, verify, activate, reset_password, reset_confirmation, profile_view, reset_email, reset_username, activateChangeEmail, startTotp, enableTotp, stopTotp, disableTotp, map1
+from CodeIslander.views import welcome, exercise_page, qcm_detail, theory_detail, register, run_code_secure, user_login, user_logout, user_home, verify, activate, reset_password, reset_confirmation, profile_view, reset_email, reset_username, activateChangeEmail, startTotp, enableTotp, stopTotp, disableTotp, map1, vip_funct, update_funct, support_funct
 
 urlpatterns = [
     path('', welcome, name='welcome'),
     path('home/', user_home, name='home'),
     path('map1/', map1, name='map1'),
+    path('vip/', vip_funct, name='vip'),
+    path('support/', support_funct, name='support'),
+    path('updates/', update_funct, name='updates'),
     path('register/', register, name='register'),
     path('login/', user_login, name='login'),
     path('login/verify/', verify, name="verify"),

@@ -1,0 +1,64 @@
+/* updates.css */
+
+.updates {
+  position: relative;
+  z-index: 1;              
+  color: #fff;
+  padding: 2rem 3rem;
+  max-width: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* optional contrast */
+}
+
+
+.updates-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.updates-header h1 {
+  font-size: 2rem;
+  color: #f1c40f;
+  margin-bottom: 0.5rem;
+}
+
+.updates-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.update-card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease, background 0.3s ease;
+}
+
+.update-card:hover {
+  transform: translateY(-4px);
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.update-card h2 {
+  color: #f39c12;
+  margin-bottom: 0.25rem;
+}
+
+.update-card .date {
+  display: block;
+  font-size: 0.9rem;
+  color: #bdc3c7;
+  margin-bottom: 0.75rem;
+}
+
+.update-card p {
+  margin-bottom: 0.75rem;
+}
+
+.update-card ul {
+  margin-left: 1.2rem;
+  list-style: '✨ ';
+}

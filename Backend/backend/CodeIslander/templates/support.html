@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block head_content %}
+<link rel="stylesheet" href="{% static 'css/support.css' %}">
+{% endblock %}
+
+{% block content %}
+<!-- Support Section -->
+<section class="support">
+  <div class="support-header">
+    <h1>🛠️ Support Center</h1>
+    <p>Need help? We’re here to assist you with any questions or issues you might have.</p>
+  </div>
+
+  <div class="support-container">
+    <!-- Contact Options -->
+    <div class="support-card">
+      <h2>📩 Contact Us</h2>
+      <p>Have a problem or feedback? Reach out directly and we’ll get back to you.</p>
+      <a href="codeislander@gmail.com" class="support-button">Send Email</a>
+    </div>
+
+    <div class="support-card">
+      <h2>💬 Live Chat</h2>
+      <p>Chat with our support team in real-time during working hours.</p>
+      <a href="#" class="support-button disabled">Coming Soon</a>
+    </div>
+
+    <div class="support-card">
+      <h2>📘 FAQ</h2>
+      <p>Find quick answers to common questions about accounts, progress, and more.</p>
+    </div>
+  </div>
+
+  <div class="support-footer">
+    <p>Still stuck? Don’t worry — our team’s got your back 💪</p>
+  </div>
+</section>
+{% endblock %}

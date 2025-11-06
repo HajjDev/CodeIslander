@@ -1,0 +1,79 @@
+.support {
+  padding: 2rem;
+  color: #fff;
+  background-color: rgba(0, 0, 0, 0.3);
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.support-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.support-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #f1c40f;
+}
+
+/* Stack cards vertically */
+.support-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* space between cards */
+  align-items: center; /* center them horizontally */
+}
+
+/* Cards */
+.support-card {
+  background: #2c3e50;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  width: 100%;
+  max-width: 600px; /* prevent it from stretching too wide */
+}
+
+.support-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+}
+
+.support-card h2 {
+  color: #1abc9c;
+  margin-bottom: 0.75rem;
+}
+
+.support-card p {
+  color: #ecf0f1;
+  margin-bottom: 1rem;
+}
+
+.support-button {
+  display: inline-block;
+  background-color: #1abc9c;
+  color: #fff;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  transition: background 0.2s ease;
+}
+
+.support-button:hover {
+  background-color: #16a085;
+}
+
+.support-button.disabled {
+  background-color: #7f8c8d;
+  pointer-events: none;
+  cursor: not-allowed;
+}
+
+.support-footer {
+  text-align: center;
+  margin-top: 3rem;
+  font-style: italic;
+  opacity: 0.8;
+}

@@ -1,0 +1,47 @@
+/* VIP tabe */
+
+.pricing-table {
+  text-align: center;
+  padding: 3rem 1rem;
+  font-family: sans-serif;
+  
+}
+
+.pricing-table h2 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.pricing-table p {
+  margin-bottom: 2rem;
+  color: #555;
+}
+
+.pricing-table table {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto 2rem;
+  border-collapse: collapse;
+  background: white;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.pricing-table th,
+.pricing-table td {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  font-size: 1rem;
+}
+
+
+.overlay-content {
+    position: absolute;
+    top: 25vh;          
+    left: 0vw;          
+    background-color: transparent;
+    padding: 6rem 3rem; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 2;
+}
