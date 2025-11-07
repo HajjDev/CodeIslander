@@ -22,6 +22,7 @@ from .pages.code_runner import run_code_secure, exercise_page
 from .pages.qcm_details import qcm_detail
 from .pages.theory import theory_detail
 from .pages.map1 import map1
+from .pages.map2 import map2
 from .pages.vip import vip_funct
 from .pages.updates import update_funct
 from .pages.support import support_funct

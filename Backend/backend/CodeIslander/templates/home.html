@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block content %}
-<div id="canvas-container" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0;"></div>
+<div id="canvas-container" style="position: fixed; top:0; left:0; width:100%; height:100%; z-index:0;"></div>
 
 <script type="module">
 import * as THREE from 'three';
@@ -15,7 +15,6 @@ scene.background = new THREE.Color(0xf0f0f0);
 
 // --- Camera ---
 const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-window.camera = camera;
 
 // --- Renderer ---
 const renderer = new THREE.WebGLRenderer({ antialias: true });
@@ -29,12 +28,10 @@ controls.enableDamping = true;
 controls.minDistance = 0.5;
 controls.maxDistance = 5;
 controls.maxPolarAngle = THREE.MathUtils.degToRad(88);
-
-// Right-click pan restriction
 controls.enablePan = true;
+
 let originalTarget = new THREE.Vector3();
 const panLimit = 0.4;
-
 controls.addEventListener('change', () => {
     controls.target.x = THREE.MathUtils.clamp(controls.target.x, originalTarget.x - panLimit, originalTarget.x + panLimit);
     controls.target.y = THREE.MathUtils.clamp(controls.target.y, originalTarget.y - panLimit, originalTarget.y + panLimit);
@@ -44,11 +41,36 @@ controls.addEventListener('change', () => {
 // --- Lights ---
 scene.add(new THREE.AmbientLight(0xffffff, 1.5));
 const dirLight = new THREE.DirectionalLight(0xffffff, 2);
-dirLight.position.set(5, 10, 7.5);
+dirLight.position.set(5,10,7.5);
 scene.add(dirLight);
 
+// --- Define URLs for meshes only ---
+const meshUrls = {
+    'LightHouseMesh': '{% url "map1" %}',
+    'LightHouseMesh_1': '{% url "map1" %}',
+    'LightHouseMesh_2': '{% url "map1" %}',
+    'LightHouseMesh_3': '{% url "map1" %}',
+    'LightHouseMesh_4': '{% url "map1" %}',
+    'LightHouseMesh_5': '{% url "map1" %}',
+    'LightHouseMesh_6': '{% url "map1" %}',
+    'LightHouseMesh_7': '{% url "map1" %}',
+    'LightHouseMesh_8': '{% url "map1" %}',
+    'LightHouseMesh_9': '{% url "map1" %}',
+    'LightHouseMesh_10': '{% url "map1" %}',
+    'LightHouseMesh_11': '{% url "map1" %}',
+    'LightHouseMesh_12': '{% url "map1" %}',
+    'LightHouseMesh_13': '{% url "map1" %}',
+    'snowbiomemesh': '{% url "map2" %}',
+    'snowbiomemesh_1': '{% url "map2" %}',
+    'snowbiomemesh_2': '{% url "map2" %}',
+    'snowbiomemesh_3': '{% url "map2" %}',
+    'snowbiomemesh_4': '{% url "map2" %}',
+    'snowbiomemesh_5': '{% url "map2" %}',
+    'snowbiomemesh_6': '{% url "map2" %}',
 
-// --- Raycaster setup ---
+};
+
+// --- Raycaster ---
 const raycaster = new THREE.Raycaster();
 const mouse = new THREE.Vector2();
 
@@ -57,58 +79,58 @@ function onClick(event) {
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 
     raycaster.setFromCamera(mouse, camera);
-    const intersects = raycaster.intersectObjects(scene.children, true);
+    // Only meshes with a URL
+    const intersects = raycaster.intersectObjects(scene.children, true)
+        .filter(i => i.object.isMesh && i.object.userData.url);
 
     if (intersects.length > 0) {
         const obj = intersects[0].object;
-        if (obj.userData.url) {
-            window.location.href = obj.userData.url;
-        }
+        window.location.href = obj.userData.url;
     }
 }
-
 window.addEventListener('click', onClick, false);
 
-// --- Load Model ---
+// --- Load GLB model ---
 const loader = new GLTFLoader();
-loader.load(
-    "{% static '3d_assets/Islands.glb' %}",
-    (gltf) => {
-        console.log("Model loaded successfully!");
-        const model = gltf.scene;
+loader.load("{% static '3d_assets/mostrecentisland.glb' %}", (gltf) => {
+    console.log("Model loaded successfully!");
+    const model = gltf.scene;
 
+    // Center & scale
+    const box = new THREE.Box3().setFromObject(model);
+    const center = box.getCenter(new THREE.Vector3());
+    const size = box.getSize(new THREE.Vector3());
 
-        // Bounding box & center
-        const box = new THREE.Box3().setFromObject(model);
-        const center = box.getCenter(new THREE.Vector3());
-        const size = box.getSize(new THREE.Vector3());
+    const group = new THREE.Group();
+    group.add(model);
+    model.position.sub(center);
 
-        const group = new THREE.Group();
-        group.add(model);
-        model.position.sub(center);
+    const maxDim = Math.max(size.x, size.y, size.z);
+    group.scale.multiplyScalar(2.5 / maxDim);
 
-        // Scale to fit
-        const maxDim = Math.max(size.x, size.y, size.z);
-        const scale = 2.5 / maxDim;
-        group.scale.multiplyScalar(scale);
+    scene.add(group);
 
-        scene.add(group);
+    // Assign URLs only to meshes
+    group.traverse((child) => {
+        if (child.isMesh && meshUrls[child.name]) {
+            child.userData.url = meshUrls[child.name];
+            console.log("Clickable mesh:", child.name, "->", meshUrls[child.name]);
+        }
+        console.log(child.isMesh ? "Mesh:" : "Object:", child.name);
+    });
 
-        // Set original target for pan restriction
-        const sphere = new THREE.Sphere();
-        new THREE.Box3().setFromObject(group).getBoundingSphere(sphere);
-        originalTarget.copy(sphere.center);
-        controls.target.copy(sphere.center);
+    // Set pan target
+    const sphere = new THREE.Sphere();
+    new THREE.Box3().setFromObject(group).getBoundingSphere(sphere);
+    originalTarget.copy(sphere.center);
+    controls.target.copy(sphere.center);
 
-        // Camera starting position
-        camera.position.set(-1.661, 0.818, 1.099);
-        camera.lookAt(sphere.center);
+    camera.position.set(-1.661, 0.818, 1.099);
+    camera.lookAt(sphere.center);
 
-        controls.update();
-    },
-    undefined,
-    (error) => console.error('Error loading model:', error)
-);
+    controls.update();
+
+}, undefined, (error) => console.error("Error loading model:", error));
 
 // --- Animation loop ---
 function animate() {
