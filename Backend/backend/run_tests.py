@@ -18,7 +18,6 @@ def run_all_tests(user_code_path):
     try:
         spec = importlib.util.spec_from_file_location(config['module_name'], user_code_path)
         user_module = importlib.util.module_from_spec(spec)
-        spec.loader.exec_module(user_module)
     except Exception as e:
         print(json.dumps({"status": "error", "message": f"Failed to import code: {e}"}))
         sys.exit(1)
@@ -34,6 +33,10 @@ def run_all_tests(user_code_path):
         }
         
         try:
+            # --- We run the user's code first in all test types ---
+            spec.loader.exec_module(user_module)
+            
+            # --- TYPE 1: FUNCTION CALL ---
             if case['type'] == 'function_call':
                 func_to_test = getattr(user_module, config['function_to_test'])
                 actual_output = func_to_test(*case['inputs'])
@@ -44,7 +47,8 @@ def run_all_tests(user_code_path):
                 
                 test_result['actual'] = str(actual_output)
                 test_result['expected'] = str(expected_output)
-
+            
+            # --- TYPE 2: STDIN / STDOUT ---
             elif case['type'] == 'stdin_stdout':
                 sys.stdin = io.StringIO(case['stdin'])
                 f = io.StringIO()
@@ -59,6 +63,53 @@ def run_all_tests(user_code_path):
                 
                 test_result['actual'] = actual_output
                 test_result['expected'] = expected_output
+
+            # --- NEW: TYPE 3: VARIABLE CHECK ---
+            elif case['type'] == 'variable_check':
+                expected_vars = json.loads(case['expected_output'])
+                failed_checks = []
+                all_passed = True
+
+                for var_name, checks in expected_vars.items():
+                    try:
+                        actual_value = getattr(user_module, var_name)
+                        expected_value = checks['value']
+                        expected_type_str = checks['type']
+                        
+                        actual_type_str = type(actual_value).__name__
+                        if actual_type_str != expected_type_str:
+                            all_passed = False
+                            failed_checks.append(f"Variable '{var_name}': Expected type {expected_type_str}, but got {actual_type_str}")
+                            continue
+                        
+                        if actual_value != expected_value:
+                            all_passed = False
+                            failed_checks.append(f"Variable '{var_name}': Expected value {repr(expected_value)}, but got {repr(actual_value)}")
+
+                    except AttributeError:
+                        all_passed = False
+                        failed_checks.append(f"Variable '{var_name}' was not defined.")
+                    except Exception as e:
+                        all_passed = False
+                        failed_checks.append(f"Error checking '{var_name}': {e}")
+                
+                test_result['passed'] = all_passed
+                if not all_passed:
+                    test_result['actual'] = "\n".join(failed_checks)
+                    test_result['expected'] = "All variables to be correctly converted"
+                else:
+                    test_all_passed = "All variables passed!"
+                    test_result['actual'] = test_all_passed
+                    test_result['expected'] = test_all_passed
+
+            # --- THIS BLOCK CATCHES THE TYPO ---
+            else:
+                test_result['passed'] = False
+                # Use repr() to show invisible characters (like spaces)
+                test_result['actual'] = f"Unknown test type: {repr(case['type'])}"
+                test_result['expected'] = "Must be 'function_call', 'stdin_stdout', or 'variable_check'"
+            # --- END OF NEW BLOCK ---
+
 
             if not test_result['passed'] and is_hidden:
                 test_result['actual'] = "[Hidden]"
