@@ -12,6 +12,13 @@ class Exercise(models.Model):
         blank=True,
         help_text="Hidden code to run BEFORE the user's code (e.g., variable definitions)"
     )
+    
+    setup_files = models.JSONField(
+        default=dict, 
+        blank=True,
+        null=True,
+        help_text='JSON object of setup files: {"filename.txt": "content"}'
+    )
 
     function_to_test = models.CharField(
         max_length=100, 
