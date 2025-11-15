@@ -40,10 +40,13 @@
             <a href="{% url 'profile' %}"><span class="icon">🔒</span> Profile</a>
         </li>
         <li class="sidebar__item">
-            <a href="{% url 'updates' %}"><span class="icon">📢</span> updates</a>
+            <a href="{% url 'updates' %}"><span class="icon">ℹ️</span> Info</a>
         </li>
         <li class="sidebar__item">
             <a href="{% url 'support' %}"><span class="icon">🛠️</span> Support/help</a>
+        </li>
+        <li class="sidebar__item">
+            <a href="{% static 'files/Theory_python.pdf' %}" target="_blank" rel="noopener noreferrer"><span class="icon">📄</span> Codeislander Documentation</a></a>
         </li>
     </ul>
 
